@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import GradientButton from '../components/GradientButton';
 import Logo from '../assets/isologo.png';
 
 const Header = () => {
@@ -42,12 +43,12 @@ const Header = () => {
           src={Logo} 
           alt="Logo Bossi SRL" 
           className={`
-            transition-all duration-300 ease-in-out h-12
+            transition-all duration-300 ease-in-out h-16 md:h-12 2xl:h-14
           `}
         />
       </div>
       
-      <nav className="hidden md:flex text-xs space-x-6">
+      <nav className="hidden md:flex md:text-xs 2xl:text-base md:space-x-6 2xl:space-x-12">
         {[
           { href: "#inicio", text: "Nosotros", isSpecial: false },
           { href: "#servicios", text: "Servicios", isSpecial: false },
@@ -76,23 +77,15 @@ const Header = () => {
           </a>
         ))}
       </nav>
-      
-      <button 
+      <GradientButton
         className={`
-          bg-gradient-to-r from-[#035EBB] to-[#002052] text-white px-4 py-2 rounded-full 
-          font-semibold text-xs relative overflow-hidden group
-          transition-all duration-300 ease-in-out
-          hover:shadow-lg hover:scale-105 hover:-translate-y-0.5
-          before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#002052] before:to-[#035EBB]
-          before:opacity-0 before:transition-opacity before:duration-300
-          hover:before:opacity-100
+          px-4 py-2 rounded-full font-semibold 
+          md:text-xs 2xl:text-base
           ${isScrolled ? 'shadow-md' : ''}
         `}
       >
-        <span className="relative z-10 transition-all duration-300 group-hover:scale-110">
-          Iniciar
-        </span>
-      </button>
+        Iniciar
+      </GradientButton>
     </header>
   );
 };

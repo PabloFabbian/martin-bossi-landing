@@ -1,5 +1,6 @@
 import React from 'react';
 import Port from '../assets/port.jpg';
+import GradientButton from '../components/GradientButton';
 
 const Hero = () => {
   return (
@@ -31,9 +32,9 @@ const Hero = () => {
               </p>
 
               <div className="flex justify-start items-center pt-4 gap-4">
-                <button className="bg-gradient-to-r from-[#035EBB] to-[#002052] text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors font-semibold text-xs">
+                <GradientButton className="px-6 py-3 text-xs font-semibold">
                   Solicitá tu cotización
-                </button>
+                </GradientButton>
                 <button className="border-2 border-white text-white px-6 py-2.5 rounded-full hover:bg-white hover:text-slate-900 transition-colors font-semibold text-xs">
                   Quiero más info.
                 </button>
