@@ -3,6 +3,9 @@ import Header from './sections/Header';
 import Hero from './sections/Hero';
 import Benefits from './sections/Benefits';
 import Services from './sections/Services';
+import Connections from './sections/Connections';
+import ContactCTA from './sections/ContactCTA';
+import Footer from './sections/Footer';
 
 function App() {
   return (
@@ -12,7 +15,10 @@ function App() {
       <Header />
       <Hero />
       <Benefits />
+      <Connections />
       <Services />
+      <ContactCTA />
+      <Footer />
     </>
   );
 }

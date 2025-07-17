@@ -1,5 +1,5 @@
 import React from 'react';
-import Port from '../assets/port.jpg';
+import Port from '../assets/port.webp';
 import GradientButton from '../components/GradientButton';
 
 const Hero = () => {

@@ -1,19 +1,58 @@
+import React from 'react';
+
 const benefits = [
-  { icon: '/icons/seguridad.svg', title: 'Seguridad', description: 'Procesos seguros y transparentes.' },
-  { icon: '/icons/eficiencia.svg', title: 'Eficiencia', description: 'Logística optimizada para ahorrar tiempo.' },
-  { icon: '/icons/expertos.svg', title: 'Expertos', description: 'Equipo con experiencia internacional.' },
+  {
+    icon: (
+      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+        
+      </div>
+    ),
+    text: "Tu aliado confiable en cada etapa del proceso logístico.",
+  },
+  {
+    icon: (
+      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+        
+      </div>
+    ),
+    text: "Procesos validados y certificados para tu tranquilidad.",
+  },
+  {
+    icon: (
+      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+        
+      </div>
+    ),
+    text: "Menos burocracia, más velocidad en cada gestión.",
+  },
+  {
+    icon: (
+      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+        
+      </div>
+    ),
+    text: "Detectamos oportunidades reales en origen y producto.",
+  },
+  {
+    icon: (
+      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+        
+      </div>
+    ),
+    text: "Optimizamos tu logística para generar mayor rentabilidad.",
+  },
 ];
 
 const Benefits = () => {
   return (
-    <section className="py-16 bg-gray-50 text-center">
-      <h2 className="text-3xl font-bold mb-10">¿Por qué elegirnos?</h2>
-      <div className="grid md:grid-cols-3 gap-8 px-8">
-        {benefits.map(({ icon, title, description }) => (
-          <div key={title} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-            <img src={icon} alt={title} className="w-16 h-16 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold">{title}</h3>
-            <p className="text-gray-600 mt-2">{description}</p>
+    <section className="bg-gradient-to-r from-[#0D1224] to-[#13182C] py-16 px-6 md:px-16">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 text-left">
+        {benefits.map((benefit, index) => (
+          <div key={index} className="flex flex-col items-left gap-4">
+            {benefit.icon}
+            <p className="text-white text-sm md:text-base leading-relaxed">
+              {benefit.text}
+            </p>
           </div>
         ))}
       </div>
