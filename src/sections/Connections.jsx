@@ -15,7 +15,7 @@ const Connections = () => {
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
         
         <div className="flex flex-col justify-center gap-6">
           <p className="text-white text-sm uppercase tracking-wide">Conexiones</p>
@@ -33,7 +33,7 @@ const Connections = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 gap-4">
           <ConnectionItem
             icon=""
             title="Asesoría personalizada para tu negocio"
@@ -48,11 +48,6 @@ const Connections = () => {
             icon=""
             title="Gestión de trámites simplificada y efectiva"
             description="Nos encargamos de los trámites para que tú no tengas que hacerlo."
-          />
-          <ConnectionItem
-            icon=""
-            title="Tu éxito es nuestra prioridad"
-            description="Juntos, haremos crecer tu negocio en el exterior."
           />
         </div>
       </div>

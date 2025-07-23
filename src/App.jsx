@@ -2,10 +2,11 @@ import { Toaster } from 'sonner';
 import Header from './sections/Header';
 import Hero from './sections/Hero';
 import Benefits from './sections/Benefits';
-import Services from './sections/Services';
 import Connections from './sections/Connections';
 import ContactCTA from './sections/ContactCTA';
 import Footer from './sections/Footer';
+import ContactForm from './sections/ContactForm';
+import ServicesPage from './sections/ServicesPage';
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
       <Hero />
       <Benefits />
       <Connections />
-      <Services />
+      <ServicesPage />
       <ContactCTA />
+      <ContactForm />
       <Footer />
     </>
   );

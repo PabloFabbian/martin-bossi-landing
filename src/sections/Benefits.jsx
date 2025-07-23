@@ -46,6 +46,7 @@ const benefits = [
 const Benefits = () => {
   return (
     <section className="bg-gradient-to-r from-[#0D1224] to-[#13182C] py-16 px-6 md:px-16">
+      
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 text-left">
         {benefits.map((benefit, index) => (
           <div key={index} className="flex flex-col items-left gap-4">
