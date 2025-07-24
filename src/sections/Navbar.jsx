@@ -53,7 +53,7 @@ const Header = () => {
       })
         .to(header, {
           boxShadow: '0 0 30px rgba(225,176,0,0.8), 0 0 60px rgba(225,176,0,0.4)',
-          duration: 0.3,
+          duration: 0.2,
           ease: 'power2.out',
         }, '-=0.8')
         .to(header, {
@@ -117,7 +117,7 @@ const Header = () => {
         transition-transform transition-opacity duration-500 ease-in-out
         ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
         ${isScrolled 
-          ? 'bg-[#001022] md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]' 
+          ? 'bg-[#001022]/70 md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]' 
           : 'bg-[#001022]/70 md:py-2.5 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
         }
       `}
