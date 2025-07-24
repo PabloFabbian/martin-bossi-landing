@@ -10,19 +10,18 @@ const Connections = () => {
         <img 
           src={Map} 
           alt="Mapa mundial" 
-          className="w-full h-full object-cover"
+          className="w-full h-dvh object-cover"
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
-        
+
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex flex-col justify-center gap-6">
-          <p className="text-white text-sm uppercase tracking-wide">Conexiones</p>
-          <h2 className="text-white text-4xl md:text-5xl font-semibold leading-tight">
+          <p className="text-white text-xs uppercase tracking-wide">Conexiones</p>
+          <h2 className="text-white text-4xl md:text-4xl 2xl:text-5xl font-semibold leading-tight">
             Tu socio estratégico<br />en comercio exterior
           </h2>
-          <p className="text-white/80 text-base max-w-md">
+          <p className="text-white/80 text-sm max-w-md">
             Ofrecemos asesoría integral en comercio internacional. Nuestra experiencia y tecnología garantizan un proceso ágil y eficiente.
           </p>
           <div className="flex gap-4 flex-wrap">
@@ -33,21 +32,34 @@ const Connections = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
+        <div className="flex flex-col gap-4">
           <ConnectionItem
-            icon=""
+            step="1"
             title="Asesoría personalizada para tu negocio"
             description="Te ayudamos a navegar el complejo mundo del comercio exterior."
+            showLine={true}
+            index={0}
           />
           <ConnectionItem
-            icon=""
+            step="2"
             title="Logística eficiente para tus importaciones"
             description="Optimiza tus operaciones logísticas con nuestros expertos."
+            showLine={true}
+            index={1}
           />
           <ConnectionItem
-            icon=""
+            step="3"
             title="Gestión de trámites simplificada y efectiva"
             description="Nos encargamos de los trámites para que tú no tengas que hacerlo."
+            showLine={true}
+            index={2}
+          />
+          <ConnectionItem
+            step="4"
+            title="Importación confiable y segura de productos"
+            description="Nos encargamos de todo el proceso para que tus productos lleguen a tiempo y sin complicaciones, garantizando calidad y cumplimiento normativo."
+            showLine={false}
+            index={3}
           />
         </div>
       </div>
