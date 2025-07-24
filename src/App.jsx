@@ -1,5 +1,5 @@
 import { Toaster } from 'sonner';
-import Header from './sections/Header';
+import Navbar from './sections/Navbar';
 import Hero from './sections/Hero';
 import Benefits from './sections/Benefits';
 import Connections from './sections/Connections';
@@ -13,7 +13,7 @@ function App() {
     <>
       <Toaster position="top-right" richColors />
 
-      <Header />
+      <Navbar />
       <Hero />
       <Benefits />
       <Connections />
