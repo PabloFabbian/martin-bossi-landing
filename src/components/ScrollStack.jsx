@@ -77,7 +77,7 @@ const ScrollStack = ({
       const translateY = Math.max(0, scrollTop - triggerStart);
 
       const newTransform = {
-        translateY: Math.round(translateY * 150) / 350,
+        translateY: Math.round(translateY * 275) / 350,
         scale: Math.round(scale * 1000) / 1000,
         rotation: Math.round(rotation * 100) / 100,
         blur: Math.round(blur * 100) / 100
