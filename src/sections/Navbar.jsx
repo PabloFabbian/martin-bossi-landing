@@ -112,13 +112,13 @@ const Header = () => {
     <header 
       ref={headerRef}
       className={`
-        fixed top-0 left-0 w-full flex justify-between items-center md:px-10 2xl:px-14
+        fixed top-0 left-0 w-full flex justify-between items-center md:px-10 2xl:px-14 bg-[#001022]/70
         rounded-b-3xl z-50
         transition-transform transition-opacity duration-500 ease-in-out
-        ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
+        ${isVisible ? 'bg-[#001022]/70 translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
         ${isScrolled 
-          ? 'bg-[#001022]/70 md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]' 
-          : 'bg-[#001022]/70 md:py-2.5 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
+          ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]' 
+          : 'md:py-2.5 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
         }
       `}
     >

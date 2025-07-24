@@ -2,7 +2,7 @@ import { Toaster } from 'sonner';
 import Navbar from './sections/Navbar';
 import Hero from './sections/Hero';
 import Benefits from './sections/Benefits';
-import Connections from './sections/Connections';
+import VerticalStepper from './sections/VerticalStepper';
 import ContactCTA from './sections/ContactCTA';
 import Footer from './sections/Footer';
 import ContactForm from './sections/ContactForm';
@@ -16,7 +16,7 @@ function App() {
       <Navbar />
       <Hero />
       <Benefits />
-      <Connections />
+      <VerticalStepper />
       <ServicesPage />
       <ContactCTA />
       <ContactForm />
