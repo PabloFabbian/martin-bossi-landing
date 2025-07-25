@@ -1,5 +1,5 @@
 import React from 'react';
-import ConnectionItem from '../components/ConnectionItem';
+import StepItem from '../components/StepItem';
 import OutlineButton from '../components/OutlineButton';
 import Map from '../assets/map.jpg';
 
@@ -10,7 +10,7 @@ const Connections = () => {
         <img 
           src={Map} 
           alt="Mapa mundial" 
-          className="w-full h-dvh object-cover"
+          className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
@@ -33,28 +33,28 @@ const Connections = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <ConnectionItem
+          <StepItem
             step="1"
             title="Asesoría personalizada para tu negocio"
             description="Te ayudamos a navegar el complejo mundo del comercio exterior."
             showLine={true}
             index={0}
           />
-          <ConnectionItem
+          <StepItem
             step="2"
             title="Logística eficiente para tus importaciones"
             description="Optimiza tus operaciones logísticas con nuestros expertos."
             showLine={true}
             index={1}
           />
-          <ConnectionItem
+          <StepItem
             step="3"
             title="Gestión de trámites simplificada y efectiva"
             description="Nos encargamos de los trámites para que tú no tengas que hacerlo."
             showLine={true}
             index={2}
           />
-          <ConnectionItem
+          <StepItem
             step="4"
             title="Importación confiable y segura de productos"
             description="Nos encargamos de todo el proceso para que tus productos lleguen a tiempo y sin complicaciones, garantizando calidad y cumplimiento normativo."

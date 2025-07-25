@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ConnectionItem = ({ step, title, description, showLine = true, index = 0 }) => {
+const StepItem = ({ step, title, description, showLine = true, index = 0 }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -49,4 +49,4 @@ const ConnectionItem = ({ step, title, description, showLine = true, index = 0 }
   );
 };
 
-export default ConnectionItem;
+export default StepItem;
