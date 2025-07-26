@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #050f24;
 }
 
 @keyframes slideScaleIn {

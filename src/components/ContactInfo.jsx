@@ -4,9 +4,9 @@ const ContactInfo = () => {
   return (
     <div className="space-y-8">
       <div>
-        <p className="text-slate-300 text-sm font-medium mb-2 ml-0.5">Contáctanos</p>
-        <h1 className="text-[2.6rem] font-normal mb-6">Contáctanos hoy</h1>
-        <p className="text-slate-300 text-lg leading-relaxed">
+        <p className="text-slate-300 text-sm font-medium mb-2 ml-0.5">Contactanos</p>
+        <h1 className="text-[2.6rem] font-normal mb-6">Contactanos hoy</h1>
+        <p className="text-slate-300 text-lg leading-relaxed max-w-[425px]">
           Estamos aquí para ayudarte con tus necesidades de importación.
         </p>
       </div>

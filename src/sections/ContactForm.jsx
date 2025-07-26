@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, forwardRef } from 'react';
+import { gsap } from 'gsap';
 import { useClickOutside } from '../hooks/useClickOutside';
 import { useFormData } from '../hooks/useFormData';
 import { useDropdownState } from '../hooks/useDropdownState';
@@ -7,10 +8,14 @@ import InputField from '../components/ui/InputField';
 import CustomDropdown from '../components/ui/CustomDropdown';
 import { FORM_OPTIONS, INITIAL_FORM_DATA } from '../data/formOptions';
 
-const ContactForm = ({ onClose }) => {
+const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
+  const containerRef = ref || useRef(null);
+  const innerRef = useRef(null);
   const { formData, handleInputChange, updateField } = useFormData(INITIAL_FORM_DATA);
   const { dropdownStates, toggleDropdown, closeAllDropdowns } = useDropdownState([
-    'tipoProyecto', 'presupuesto', 'tema'
+    'tipoProyecto',
+    'presupuesto',
+    'tema',
   ]);
   const dropdownRefs = useRef({});
 
@@ -24,18 +29,59 @@ const ContactForm = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Opcional: cerrar el formulario después de enviar
-    // if (onClose) onClose();
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0, pointerEvents: 'none' },
+        {
+          opacity: 1,
+          pointerEvents: 'auto',
+          duration: 0.4,
+          ease: 'power2.out',
+          onComplete: () => {
+            gsap.fromTo(
+              innerRef.current.children,
+              { opacity: 0, y: -20 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out',
+              }
+            );
+          },
+        }
+      );
+    } else {
+      gsap.to(containerRef.current, {
+        opacity: 0,
+        pointerEvents: 'none',
+        duration: 0.3,
+        ease: 'power2.in',
+      });
+    }
+  }, [isOpen, containerRef]);
+
   return (
-    <div className="min-h-screen bg-[#040e24] p-4 flex items-center justify-center">
-      <div className="bg-[#030B1A] text-white rounded-3xl p-16 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 shadow-[0_0_150px_30px_rgba(255,217,113,0.12)] relative">
-        {/* Botón de cerrar - solo se muestra si hay función onClose */}
+    <div
+      ref={containerRef}
+      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      style={{ opacity: 0, pointerEvents: 'none' }}
+      aria-hidden={!isOpen}
+    >
+      <div
+        ref={innerRef}
+        className="bg-[#030B1A] text-white rounded-3xl p-12 max-w-7xl w-full mx-4 grid grid-cols-1 lg:grid-cols-2 gap-12 shadow-[0_0_75px_30px_rgba(255,217,113,0.1)] scale-90 relative"
+      >
         {onClose && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 text-2xl font-bold z-10"
+            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10"
+            aria-label="Cerrar formulario"
           >
             ×
           </button>
@@ -44,7 +90,7 @@ const ContactForm = ({ onClose }) => {
         <ContactInfo />
 
         <div>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-7">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <InputField
                 label="Nombre"
@@ -72,7 +118,7 @@ const ContactForm = ({ onClose }) => {
                 isOpen={dropdownStates.tipoProyecto}
                 onToggle={() => toggleDropdown('tipoProyecto')}
                 onSelect={(value) => handleDropdownSelect('tipoProyecto', value)}
-                setRef={(el) => dropdownRefs.current.tipoProyecto = el}
+                setRef={(el) => (dropdownRefs.current.tipoProyecto = el)}
               />
 
               <CustomDropdown
@@ -84,7 +130,7 @@ const ContactForm = ({ onClose }) => {
                 isOpen={dropdownStates.presupuesto}
                 onToggle={() => toggleDropdown('presupuesto')}
                 onSelect={(value) => handleDropdownSelect('presupuesto', value)}
-                setRef={(el) => dropdownRefs.current.presupuesto = el}
+                setRef={(el) => (dropdownRefs.current.presupuesto = el)}
               />
             </div>
 
@@ -97,7 +143,7 @@ const ContactForm = ({ onClose }) => {
               isOpen={dropdownStates.tema}
               onToggle={() => toggleDropdown('tema')}
               onSelect={(value) => handleDropdownSelect('tema', value)}
-              setRef={(el) => dropdownRefs.current.tema = el}
+              setRef={(el) => (dropdownRefs.current.tema = el)}
             />
 
             <InputField
@@ -123,6 +169,6 @@ const ContactForm = ({ onClose }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ContactForm;
