@@ -46,7 +46,7 @@ const ServicesPage = () => {
 
   return (
     <section
-      className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] pt-20 pb-12 px-6"
+      className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] pt-20 pb-12 px-6" id='servicios'
     >
       <div className="max-w-6xl mx-auto"
       ref={sectionRef}>

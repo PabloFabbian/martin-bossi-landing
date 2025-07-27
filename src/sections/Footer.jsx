@@ -1,16 +1,17 @@
 import React from "react";
-import Logo from '../assets/isologo.png';
+import Logo from '../assets/isologo_night.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#040616] text-white px-6 py-12">
+    <footer className="bg-[#040616] text-white px-6 py-12" id="contacto">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         <div className="space-y-4">
           <img src={Logo} alt="Logo Martin Bossi" className="w-32" />
 
           <div>
             <p className="font-semibold">Dirección:</p>
-            <p>Nivel 1, 12 Calle Ejemplo, Sydney NSW 2000</p>
+            <p>Avenida Santa Fe 1170, Acassuso - Zona Norte</p>
+            <p className="underline">Buenos Aires, Argentina</p>
           </div>
 
           <div>
@@ -31,11 +32,11 @@ const Footer = () => {
         <div className="md:col-span-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
             <div className="space-y-2 pl-20 md:pl-36 text-start">
-              <a href="#" className="block hover:underline">Enlace Uno</a>
-              <a href="#" className="block hover:underline">Enlace Dos</a>
-              <a href="#" className="block hover:underline">Enlace Tres</a>
-              <a href="#" className="block hover:underline">Enlace Cuatro</a>
-              <a href="#" className="block hover:underline">Enlace Cinco</a>
+              <a href="#" className="block hover:underline">Nosotros</a>
+              <a href="#" className="block hover:underline">Servicios</a>
+              <a href="#" className="block hover:underline">Cotizá tu operación</a>
+              <a href="#" className="block hover:underline">Contacto</a>
+              <a href="#" className="block hover:underline">FAQ's</a>
             </div>
 
             <div className="rounded-xl overflow-hidden shadow-[0_0_25px_#FFD70044]">

@@ -5,7 +5,7 @@ import Map from '../assets/map.jpg';
 
 const Connections = () => {
   return (
-    <section className="relative py-20 px-6 md:px-16 overflow-hidden">
+    <section className="relative py-20 px-6 md:px-16 overflow-hidden" id='nosotros'>
       <div className="absolute inset-0 z-0">
         <img 
           src={Map} 

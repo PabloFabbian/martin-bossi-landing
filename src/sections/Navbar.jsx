@@ -13,7 +13,6 @@ const Header = () => {
   const navRef = useRef(null);
   const buttonRef = useRef(null);
 
-  // Animación de entrada al montar el componente
   useEffect(() => {
     const header = headerRef.current;
     const logo = logoRef.current;
@@ -88,7 +87,6 @@ const Header = () => {
     }
   }, []);
 
-  // Mostrar/Ocultar navbar según scroll
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -96,9 +94,9 @@ const Header = () => {
       setIsScrolled(currentScrollY > 50);
 
       if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
-        setIsVisible(false); // Oculta al scrollear hacia abajo
+        setIsVisible(false);
       } else {
-        setIsVisible(true); // Muestra al scrollear hacia arriba
+        setIsVisible(true);
       }
 
       lastScrollY.current = currentScrollY;
@@ -136,9 +134,9 @@ const Header = () => {
 
       <nav ref={navRef} className="hidden md:flex md:text-xs 2xl:text-base md:space-x-12 2xl:space-x-16">
         {[
-          { href: "#inicio", text: "Nosotros", isSpecial: false },
+          { href: "#nosotros", text: "Nosotros", isSpecial: false },
           { href: "#servicios", text: "Servicios", isSpecial: false },
-          { href: "#beneficios", text: "Cotizá tu operación", isSpecial: true },
+          { href: "#cotizacion", text: "Cotizá tu operación", isSpecial: true },
           { href: "#contacto", text: "Contacto", isSpecial: false },
           { href: "#faqs", text: "FAQ's", isSpecial: false }
         ].map((item, index) => (
@@ -146,7 +144,7 @@ const Header = () => {
             key={index}
             href={item.href}
             className={`
-              relative transition-all duration-300 ease-in-out
+              relative transition-all duration-300 ease-in-out pb-1
               ${item.isSpecial 
                 ? 'text-[#FFAE2B]/80 hover:text-[#FFAE2B] font-medium' 
                 : 'text-white hover:text-white/70'
