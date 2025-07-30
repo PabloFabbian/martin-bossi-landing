@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import ContactForm from "./ContactForm";
 import GradientButton from "../components/GradientButton";
@@ -15,33 +15,35 @@ const ContactCTA = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          gsap.from(h1Ref.current, {
-            y: 50,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power2.out",
-          });
-          gsap.from(h2Ref.current, {
-            y: 50,
-            opacity: 0,
-            duration: 0.6,
-            delay: 0.2,
-            ease: "power2.out",
-          });
-          gsap.from(pRef.current, {
-            y: 40,
-            opacity: 0,
-            duration: 0.6,
-            delay: 0.4,
-            ease: "power2.out",
-          });
-          gsap.from(btnRef.current, {
-            y: 30,
-            opacity: 0,
-            duration: 0.6,
-            delay: 0.6,
-            ease: "power2.out",
-          });
+          const ctx = gsap.context(() => {
+            gsap.from(h1Ref.current, {
+              y: 50,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power2.out",
+            });
+            gsap.from(h2Ref.current, {
+              y: 50,
+              opacity: 0,
+              duration: 0.6,
+              delay: 0.2,
+              ease: "power2.out",
+            });
+            gsap.from(pRef.current, {
+              y: 40,
+              opacity: 0,
+              duration: 0.6,
+              delay: 0.4,
+              ease: "power2.out",
+            });
+            gsap.from(btnRef.current, {
+              y: 30,
+              opacity: 0,
+              duration: 0.6,
+              delay: 0.6,
+              ease: "power2.out",
+            });
+          }, sectionRef);
 
           observer.disconnect();
         }
@@ -52,6 +54,14 @@ const ContactCTA = () => {
     if (sectionRef.current) observer.observe(sectionRef.current);
 
     return () => observer.disconnect();
+  }, []);
+
+  const toggleForm = useCallback(() => {
+    setShowForm(prev => !prev);
+  }, []);
+
+  const closeForm = useCallback(() => {
+    setShowForm(false);
   }, []);
 
   return (
@@ -85,8 +95,10 @@ const ContactCTA = () => {
           </p>
           <div ref={btnRef}>
             <GradientButton
-              onClick={() => setShowForm((prev) => !prev)}
+              onClick={toggleForm}
               className="px-8 py-3 text-base font-medium"
+              aria-expanded={showForm}
+              aria-controls="contact-form-modal"
             >
               Consultanos
             </GradientButton>
@@ -106,7 +118,7 @@ const ContactCTA = () => {
         </div>
       </section>
 
-      <ContactForm isOpen={showForm} onClose={() => setShowForm(false)} />
+      <ContactForm isOpen={showForm} onClose={closeForm} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, forwardRef } from 'react';
+import React, { useRef, useEffect, forwardRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { useClickOutside } from '../hooks/useClickOutside';
 import { useFormData } from '../hooks/useFormData';
@@ -9,7 +9,7 @@ import CustomDropdown from '../components/ui/CustomDropdown';
 import { FORM_OPTIONS, INITIAL_FORM_DATA } from '../data/formOptions';
 
 const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
-  const containerRef = ref || useRef(null);
+  const containerRef = useRef(null);
   const innerRef = useRef(null);
   const { formData, handleInputChange, updateField } = useFormData(INITIAL_FORM_DATA);
   const { dropdownStates, toggleDropdown, closeAllDropdowns } = useDropdownState([
@@ -18,85 +18,159 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     'tema',
   ]);
   const dropdownRefs = useRef({});
+  const firstFocusableElement = useRef(null);
+  const lastFocusableElement = useRef(null);
+
+  // Usamos la ref externa si existe, o la interna
+  const combinedRef = ref || containerRef;
 
   useClickOutside(dropdownRefs, closeAllDropdowns);
 
-  const handleDropdownSelect = (dropdownName, value) => {
+  const handleDropdownSelect = useCallback((dropdownName, value) => {
     updateField(dropdownName, value);
     closeAllDropdowns();
-  };
+  }, [updateField, closeAllDropdowns]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-  };
+  }, [formData]);
 
+  // Efecto para manejar el foco y el teclado
   useEffect(() => {
     if (isOpen) {
-      gsap.fromTo(
-        containerRef.current,
-        { opacity: 0, pointerEvents: 'none' },
-        {
-          opacity: 1,
-          pointerEvents: 'auto',
-          duration: 0.4,
-          ease: 'power2.out',
-          onComplete: () => {
-            gsap.fromTo(
-              innerRef.current.children,
-              { opacity: 0, y: -20 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                stagger: 0.1,
-                ease: 'power2.out',
-              }
-            );
-          },
-        }
+      // Configurar trap focus
+      const focusableElements = combinedRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
-    } else {
-      gsap.to(containerRef.current, {
-        opacity: 0,
-        pointerEvents: 'none',
-        duration: 0.3,
-        ease: 'power2.in',
-      });
+      
+      if (focusableElements?.length) {
+        firstFocusableElement.current = focusableElements[0];
+        lastFocusableElement.current = focusableElements[focusableElements.length - 1];
+        firstFocusableElement.current.focus();
+      }
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+          onClose?.();
+        }
+        
+        // Trap focus
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === firstFocusableElement.current) {
+            e.preventDefault();
+            lastFocusableElement.current.focus();
+          } else if (!e.shiftKey && document.activeElement === lastFocusableElement.current) {
+            e.preventDefault();
+            firstFocusableElement.current.focus();
+          }
+        }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [isOpen, containerRef]);
+  }, [isOpen, onClose, combinedRef]);
+
+  // Animaciones optimizadas (sin afectar pointerEvents)
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (isOpen) {
+        // Resetear estilos antes de animar
+        gsap.set(combinedRef.current, { opacity: 0 });
+        gsap.set(innerRef.current, { y: 20, opacity: 0 });
+        gsap.set(innerRef.current.children, { y: 10, opacity: 0 });
+
+        // Timeline de animación
+        gsap.timeline({
+          defaults: { ease: 'power3.out' }
+        })
+        .to(combinedRef.current, {
+          opacity: 1,
+          duration: 0.35
+        })
+        .to(innerRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.45
+        }, '-=0.15')
+        .to(innerRef.current.children, {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.07
+        }, '-=0.2');
+      } else {
+        // Animación de salida
+        gsap.timeline()
+        .to(innerRef.current.children, {
+          y: -10,
+          opacity: 0,
+          duration: 0.2,
+          stagger: 0.03
+        })
+        .to(innerRef.current, {
+          y: -20,
+          opacity: 0,
+          duration: 0.25
+        }, '-=0.1')
+        .to(combinedRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            gsap.set(combinedRef.current, { pointerEvents: 'none' });
+          }
+        }, '-=0.1');
+      }
+    }, combinedRef);
+
+    // Asegurar interactividad cuando está abierto
+    if (isOpen) {
+      gsap.set(combinedRef.current, { pointerEvents: 'auto' });
+    }
+
+    return () => ctx.revert();
+  }, [isOpen, combinedRef]);
 
   return (
     <div
-      ref={containerRef}
+      ref={combinedRef}
       className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-      style={{ opacity: 0, pointerEvents: 'none' }}
+      style={{ 
+        opacity: 0, 
+        pointerEvents: isOpen ? 'auto' : 'none' 
+      }}
       aria-hidden={!isOpen}
+      aria-modal="true"
+      role="dialog"
+      id="contact-form-modal"
     >
       <div
         ref={innerRef}
-        className="bg-[#030B1A] text-white rounded-3xl p-12 max-w-7xl w-full mx-4 grid grid-cols-1 lg:grid-cols-2 gap-12 shadow-[0_0_75px_30px_rgba(255,217,113,0.1)] scale-90 relative"
+        className="bg-[#030B1A] text-white rounded-3xl p-8 md:p-12 max-w-4xl lg:max-w-7xl w-full mx-4 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 shadow-[0_0_75px_30px_rgba(255,217,113,0.1)] transform translate-y-5 opacity-0 md:scale-75 2xl:scale-100"
       >
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10"
-            aria-label="Cerrar formulario"
-          >
-            ×
-          </button>
-        )}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#030B1A] rounded-full"
+          aria-label="Cerrar formulario"
+          ref={el => firstFocusableElement.current = el}
+        >
+          &times;
+        </button>
 
         <ContactInfo />
 
-        <div>
-          <form onSubmit={handleSubmit} className="space-y-7">
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold mb-2">Envíanos tu consulta</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <InputField
                 label="Nombre"
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
+                required
+                autoComplete="name"
               />
 
               <InputField
@@ -105,6 +179,8 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 type="email"
                 value={formData.correo}
                 onChange={handleInputChange}
+                required
+                autoComplete="email"
               />
             </div>
 
@@ -119,6 +195,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 onToggle={() => toggleDropdown('tipoProyecto')}
                 onSelect={(value) => handleDropdownSelect('tipoProyecto', value)}
                 setRef={(el) => (dropdownRefs.current.tipoProyecto = el)}
+                required
               />
 
               <CustomDropdown
@@ -131,6 +208,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 onToggle={() => toggleDropdown('presupuesto')}
                 onSelect={(value) => handleDropdownSelect('presupuesto', value)}
                 setRef={(el) => (dropdownRefs.current.presupuesto = el)}
+                required
               />
             </div>
 
@@ -144,6 +222,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
               onToggle={() => toggleDropdown('tema')}
               onSelect={(value) => handleDropdownSelect('tema', value)}
               setRef={(el) => (dropdownRefs.current.tema = el)}
+              required
             />
 
             <InputField
@@ -153,15 +232,16 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
               rows={5}
               value={formData.detalles}
               onChange={handleInputChange}
-              placeholder="Escribe tu mensaje..."
+              placeholder="Describe tu proyecto o consulta..."
             />
 
             <div>
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#030B1A] shadow-lg hover:shadow-blue-500/20"
+                ref={el => lastFocusableElement.current = el}
               >
-                Enviar
+                Enviar Consulta
               </button>
             </div>
           </form>
