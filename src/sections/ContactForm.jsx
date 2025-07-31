@@ -21,7 +21,6 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
   const firstFocusableElement = useRef(null);
   const lastFocusableElement = useRef(null);
 
-  // Usamos la ref externa si existe, o la interna
   const combinedRef = ref || containerRef;
 
   useClickOutside(dropdownRefs, closeAllDropdowns);
@@ -36,10 +35,8 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     console.log('Form submitted:', formData);
   }, [formData]);
 
-  // Efecto para manejar el foco y el teclado
   useEffect(() => {
     if (isOpen) {
-      // Configurar trap focus
       const focusableElements = combinedRef.current?.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
@@ -55,7 +52,6 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
           onClose?.();
         }
         
-        // Trap focus
         if (e.key === 'Tab') {
           if (e.shiftKey && document.activeElement === firstFocusableElement.current) {
             e.preventDefault();
@@ -72,16 +68,13 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     }
   }, [isOpen, onClose, combinedRef]);
 
-  // Animaciones optimizadas (sin afectar pointerEvents)
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (isOpen) {
-        // Resetear estilos antes de animar
         gsap.set(combinedRef.current, { opacity: 0 });
         gsap.set(innerRef.current, { y: 20, opacity: 0 });
         gsap.set(innerRef.current.children, { y: 10, opacity: 0 });
 
-        // Timeline de animación
         gsap.timeline({
           defaults: { ease: 'power3.out' }
         })
@@ -101,7 +94,6 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
           stagger: 0.07
         }, '-=0.2');
       } else {
-        // Animación de salida
         gsap.timeline()
         .to(innerRef.current.children, {
           y: -10,
@@ -124,7 +116,6 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
       }
     }, combinedRef);
 
-    // Asegurar interactividad cuando está abierto
     if (isOpen) {
       gsap.set(combinedRef.current, { pointerEvents: 'auto' });
     }
@@ -151,7 +142,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#030B1A] rounded-full"
+          className="absolute top-4 right-5 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10 focus:outline-none focus:ring-none focus:ring-offset-2 focus:ring-offset-[#030B1A] rounded-full"
           aria-label="Cerrar formulario"
           ref={el => firstFocusableElement.current = el}
         >

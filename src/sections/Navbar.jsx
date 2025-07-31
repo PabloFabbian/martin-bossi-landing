@@ -115,7 +115,7 @@ const Header = () => {
         transition-transform transition-opacity duration-500 ease-in-out
         ${isVisible ? 'bg-[#001022]/70 translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
         ${isScrolled 
-          ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]' 
+          ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)] backdrop-blur-[3px]' 
           : 'md:py-2.5 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
         }
       `}
@@ -165,7 +165,7 @@ const Header = () => {
       <GradientButton
         ref={buttonRef}
         className={`
-          px-6 py-2.5 rounded-full font-semibold 
+          px-6 md:ml-12 2xl:ml-16 py-2.5 rounded-full font-semibold 
           md:text-xs 2xl:text-base
           ${isScrolled ? 'shadow-md' : ''}
         `}
