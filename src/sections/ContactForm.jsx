@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, forwardRef, useCallback } from 'react';
+import React, { useRef, useEffect, forwardRef, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
 import emailjs from 'emailjs-com';
 import { toast, Toaster } from 'sonner';
@@ -26,18 +26,100 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
   const firstFocusableElement = useRef(null);
   const lastFocusableElement = useRef(null);
   const submitButtonRef = useRef(null);
-
   const combinedRef = ref || containerRef;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({});
 
   useClickOutside(dropdownRefs, closeAllDropdowns);
 
   const handleDropdownSelect = useCallback((dropdownName, value) => {
     updateField(dropdownName, value);
     closeAllDropdowns();
-  }, [updateField, closeAllDropdowns]);
+    // Limpiar error del campo cuando se selecciona un valor
+    if (fieldErrors[dropdownName]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[dropdownName];
+        return newErrors;
+      });
+    }
+  }, [updateField, closeAllDropdowns, fieldErrors]);
+
+  // Función para limpiar errores cuando el usuario empieza a escribir
+  const handleInputChangeWithErrorClear = useCallback((e) => {
+    const { name } = e.target;
+    handleInputChange(e);
+    
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  }, [handleInputChange, fieldErrors]);
+
+  // ✅ Validación de email
+  const isValidEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  // ✅ Validación general del formulario
+  const validateForm = () => {
+    const { nombre, correo, tipoProyecto, presupuesto, tema, detalles } = formData;
+    const errors = {};
+
+    // Validar campos obligatorios
+    if (!nombre.trim()) {
+      errors.nombre = true;
+    }
+    if (!correo.trim()) {
+      errors.correo = true;
+    }
+    if (!tipoProyecto) {
+      errors.tipoProyecto = true;
+    }
+    if (!presupuesto) {
+      errors.presupuesto = true;
+    }
+    if (!tema) {
+      errors.tema = true;
+    }
+    if (!detalles.trim()) {
+      errors.detalles = true;
+    }
+
+    if (correo.trim() && !isValidEmail(correo)) {
+      errors.correo = true;
+    }
+
+    setFieldErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      if (correo.trim() && !isValidEmail(correo)) {
+        toast.error('Por favor, ingresá un correo válido.', {
+          position: 'bottom-right',
+        });
+      } else {
+        toast.error('Por favor, completá todos los campos obligatorios.', {
+          position: 'bottom-right',
+        });
+      }
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
 
     const templateParams = {
       nombre: formData.nombre,
@@ -60,16 +142,17 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
         position: 'bottom-right',
       });
 
-      // Reset formulario
-      Object.keys(formData).forEach(key => updateField(key, ''));
-
-      onClose?.(); // opcional: cerrar modal al enviar
+      Object.keys(formData).forEach((key) => updateField(key, ''));
+      setFieldErrors({});
+      onClose?.();
 
     } catch (error) {
       console.error('Error al enviar email:', error);
       toast.error('Ocurrió un error al enviar tu mensaje. Intentalo más tarde.', {
         position: 'bottom-right',
       });
+    } finally {
+      setIsLoading(false);
     }
   }, [formData, updateField, onClose]);
 
@@ -159,7 +242,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
           onClick={onClose}
           className="absolute top-4 right-5 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10 focus:outline-none focus:ring-none focus:ring-offset-2 focus:ring-offset-[#030B1A] rounded-full"
           aria-label="Cerrar formulario"
-          ref={el => firstFocusableElement.current = el}
+          ref={(el) => firstFocusableElement.current = el}
         >
           &times;
         </button>
@@ -174,18 +257,20 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 label="Nombre"
                 name="nombre"
                 value={formData.nombre}
-                onChange={handleInputChange}
+                onChange={handleInputChangeWithErrorClear}
                 required
                 autoComplete="name"
+                hasError={fieldErrors.nombre}
               />
               <InputField
                 label="Correo"
                 name="correo"
                 type="email"
                 value={formData.correo}
-                onChange={handleInputChange}
+                onChange={handleInputChangeWithErrorClear}
                 required
                 autoComplete="email"
+                hasError={fieldErrors.correo}
               />
             </div>
 
@@ -201,6 +286,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 onSelect={(value) => handleDropdownSelect('tipoProyecto', value)}
                 setRef={(el) => (dropdownRefs.current.tipoProyecto = el)}
                 required
+                hasError={fieldErrors.tipoProyecto}
               />
 
               <CustomDropdown
@@ -214,6 +300,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 onSelect={(value) => handleDropdownSelect('presupuesto', value)}
                 setRef={(el) => (dropdownRefs.current.presupuesto = el)}
                 required
+                hasError={fieldErrors.presupuesto}
               />
             </div>
 
@@ -228,6 +315,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
               onSelect={(value) => handleDropdownSelect('tema', value)}
               setRef={(el) => (dropdownRefs.current.tema = el)}
               required
+              hasError={fieldErrors.tema}
             />
 
             <InputField
@@ -236,18 +324,19 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
               type="textarea"
               rows={5}
               value={formData.detalles}
-              onChange={handleInputChange}
+              onChange={handleInputChangeWithErrorClear}
               placeholder="Describe tu proyecto o consulta..."
+              hasError={fieldErrors.detalles}
             />
 
             <div>
-              <Toaster position="bottom-right" richColors expand={true} />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#030B1A] shadow-lg hover:shadow-blue-500/20"
+                className={`bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#030B1A] shadow-lg hover:shadow-blue-500/20 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 ref={submitButtonRef}
+                disabled={isLoading}
               >
-                Enviar Consulta
+                {isLoading ? 'Enviando...' : 'Enviar Consulta'}
               </button>
             </div>
           </form>
