@@ -1,11 +1,16 @@
 import React, { useRef, useEffect, forwardRef, useCallback } from 'react';
 import { gsap } from 'gsap';
+import emailjs from 'emailjs-com';
+import { toast, Toaster } from 'sonner';
+
 import { useClickOutside } from '../hooks/useClickOutside';
 import { useFormData } from '../hooks/useFormData';
 import { useDropdownState } from '../hooks/useDropdownState';
+
 import ContactInfo from '../components/ContactInfo';
 import InputField from '../components/ui/InputField';
 import CustomDropdown from '../components/ui/CustomDropdown';
+
 import { FORM_OPTIONS, INITIAL_FORM_DATA } from '../data/formOptions';
 
 const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
@@ -20,6 +25,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
   const dropdownRefs = useRef({});
   const firstFocusableElement = useRef(null);
   const lastFocusableElement = useRef(null);
+  const submitButtonRef = useRef(null);
 
   const combinedRef = ref || containerRef;
 
@@ -30,17 +36,49 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     closeAllDropdowns();
   }, [updateField, closeAllDropdowns]);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-  }, [formData]);
+
+    const templateParams = {
+      nombre: formData.nombre,
+      correo: formData.correo,
+      tipoProyecto: formData.tipoProyecto,
+      presupuesto: formData.presupuesto,
+      tema: formData.tema,
+      detalles: formData.detalles,
+    };
+
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_USER_ID
+      );
+
+      toast.success('Tu consulta fue enviada con éxito. ¡Gracias por contactarnos!', {
+        position: 'bottom-right',
+      });
+
+      // Reset formulario
+      Object.keys(formData).forEach(key => updateField(key, ''));
+
+      onClose?.(); // opcional: cerrar modal al enviar
+
+    } catch (error) {
+      console.error('Error al enviar email:', error);
+      toast.error('Ocurrió un error al enviar tu mensaje. Intentalo más tarde.', {
+        position: 'bottom-right',
+      });
+    }
+  }, [formData, updateField, onClose]);
 
   useEffect(() => {
     if (isOpen) {
       const focusableElements = combinedRef.current?.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
-      
+
       if (focusableElements?.length) {
         firstFocusableElement.current = focusableElements[0];
         lastFocusableElement.current = focusableElements[focusableElements.length - 1];
@@ -51,7 +89,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
         if (e.key === 'Escape') {
           onClose?.();
         }
-        
+
         if (e.key === 'Tab') {
           if (e.shiftKey && document.activeElement === firstFocusableElement.current) {
             e.preventDefault();
@@ -75,44 +113,24 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
         gsap.set(innerRef.current, { y: 20, opacity: 0 });
         gsap.set(innerRef.current.children, { y: 10, opacity: 0 });
 
-        gsap.timeline({
-          defaults: { ease: 'power3.out' }
-        })
-        .to(combinedRef.current, {
-          opacity: 1,
-          duration: 0.35
-        })
-        .to(innerRef.current, {
-          y: 0,
-          opacity: 1,
-          duration: 0.45
-        }, '-=0.15')
-        .to(innerRef.current.children, {
-          y: 0,
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.07
-        }, '-=0.2');
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+          .to(combinedRef.current, { opacity: 1, duration: 0.35 })
+          .to(innerRef.current, { y: 0, opacity: 1, duration: 0.45 }, '-=0.15')
+          .to(innerRef.current.children, {
+            y: 0,
+            opacity: 1,
+            duration: 0.4,
+            stagger: 0.07,
+          }, '-=0.2');
       } else {
         gsap.timeline()
-        .to(innerRef.current.children, {
-          y: -10,
-          opacity: 0,
-          duration: 0.2,
-          stagger: 0.03
-        })
-        .to(innerRef.current, {
-          y: -20,
-          opacity: 0,
-          duration: 0.25
-        }, '-=0.1')
-        .to(combinedRef.current, {
-          opacity: 0,
-          duration: 0.3,
-          onComplete: () => {
-            gsap.set(combinedRef.current, { pointerEvents: 'none' });
-          }
-        }, '-=0.1');
+          .to(innerRef.current.children, { y: -10, opacity: 0, duration: 0.2, stagger: 0.03 })
+          .to(innerRef.current, { y: -20, opacity: 0, duration: 0.25 }, '-=0.1')
+          .to(combinedRef.current, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => gsap.set(combinedRef.current, { pointerEvents: 'none' })
+          }, '-=0.1');
       }
     }, combinedRef);
 
@@ -127,10 +145,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     <div
       ref={combinedRef}
       className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-      style={{ 
-        opacity: 0, 
-        pointerEvents: isOpen ? 'auto' : 'none' 
-      }}
+      style={{ opacity: 0, pointerEvents: isOpen ? 'auto' : 'none' }}
       aria-hidden={!isOpen}
       aria-modal="true"
       role="dialog"
@@ -163,7 +178,6 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
                 required
                 autoComplete="name"
               />
-
               <InputField
                 label="Correo"
                 name="correo"
@@ -227,10 +241,11 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
             />
 
             <div>
+              <Toaster position="bottom-right" richColors expand={true} />
               <button
                 type="submit"
                 className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#030B1A] shadow-lg hover:shadow-blue-500/20"
-                ref={el => lastFocusableElement.current = el}
+                ref={submitButtonRef}
               >
                 Enviar Consulta
               </button>
