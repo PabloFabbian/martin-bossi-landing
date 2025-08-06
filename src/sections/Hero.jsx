@@ -107,7 +107,7 @@ const Hero = () => {
                 <GradientButton className="px-6 py-3 text-xs font-semibold">
                   Solicitá tu cotización
                 </GradientButton>
-                <button className="border-2 border-white text-white px-6 py-2.5 rounded-full hover:bg-white hover:text-slate-900 transition-colors font-semibold text-xs">
+                <button className="scale-90 border-2 border-white text-white px-7 py-3 rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 ease-in-out font-semibold text-xs select-none cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.025] focus:outline-none focus:ring-2 focus:ring-[#FFAE2B] focus:ring-offset-2 tracking-wide">
                   Quiero más info.
                 </button>
               </div>

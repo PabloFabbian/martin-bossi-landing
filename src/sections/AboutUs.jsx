@@ -26,8 +26,17 @@ const Connections = () => {
           </p>
           <div className="flex gap-4 flex-wrap">
             <OutlineButton>Contáctanos</OutlineButton>
-            <button className="text-white text-sm flex items-center gap-1 hover:underline">
-              Asesoría <span>→</span>
+            <button
+              className="group text-white text-sm font-medium flex items-center gap-1 tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAE2B] transition-all"
+            >
+              <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-white group-hover:after:w-full after:transition-all after:duration-300">
+                Asesoría
+              </span>
+              <span
+                className="select-none transform transition-transform duration-300 group-hover:translate-x-1"
+              >
+                →
+              </span>
             </button>
           </div>
         </div>

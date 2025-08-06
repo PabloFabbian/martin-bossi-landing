@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="space-y-4">
           <img src={Logo} alt="Logo Martin Bossi" className="w-32" />
 
-          <div>
+          <div className="cursor-default">
             <p className="font-semibold">Dirección:</p>
             <p>Avenida Santa Fe 1170, Acassuso - Zona Norte</p>
             <p className="underline">Buenos Aires, Argentina</p>

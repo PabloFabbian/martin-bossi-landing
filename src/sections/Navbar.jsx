@@ -48,30 +48,43 @@ const Header = () => {
         duration: 1.2,
         ease: 'back.out(1.7)',
       })
-        .to(header, {
-          boxShadow: '0 0 30px rgba(225,176,0,0.8), 0 0 60px rgba(225,176,0,0.4)',
-          duration: 0.2,
-          ease: 'power2.out',
-        }, '-=0.8')
+        .to(
+          header,
+          {
+            boxShadow:
+              '0 0 30px rgba(225,176,0,0.8), 0 0 60px rgba(225,176,0,0.4)',
+            duration: 0.2,
+            ease: 'power2.out',
+          },
+          '-=0.8'
+        )
         .to(header, {
           boxShadow: '0 4px 15px rgba(225,176,0,0.2)',
           duration: 0.5,
           ease: 'power2.out',
         })
-        .to([logo, button], {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          rotationY: 0,
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.75)',
-        }, '-=0.9')
-        .to(nav.children, {
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: 'power2.out',
-        }, '-=0.3')
+        .to(
+          [logo, button],
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotationY: 0,
+            duration: 0.8,
+            ease: 'elastic.out(1, 0.75)',
+          },
+          '-=0.9'
+        )
+        .to(
+          nav.children,
+          {
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: 'power2.out',
+          },
+          '-=0.3'
+        )
         .to(header, {
           y: -10,
           duration: 0.2,
@@ -95,69 +108,73 @@ const Header = () => {
   }, []);
 
   return (
-    <header 
+    <header
       ref={headerRef}
       className={`
         fixed top-0 left-0 w-full flex justify-between items-center md:px-10 2xl:px-14 bg-[#001022]/70
         rounded-b-3xl z-50
         transition-transform transition-opacity duration-500 ease-in-out
-        ${isScrolled 
-          ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)] backdrop-blur-[3px]' 
-          : 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
+        ${
+          isScrolled
+            ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)] backdrop-blur-[3px]'
+            : 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
         }
       `}
     >
-      <a 
+      <a
         ref={logoRef}
-        href="#inicio" 
-        className="transition-transform duration-300 hover:scale-105"
+        href="#inicio"
+        className="transition-transform duration-300 hover:scale-105 select-none"
       >
-        <img 
-          src={Logo} 
-          alt="Logo Bossi SRL" 
+        <img
+          src={Logo}
+          alt="Logo Bossi SRL"
           className="transition-all duration-300 ease-in-out h-16 md:h-12 2xl:h-14"
         />
       </a>
 
-      <nav ref={navRef} className="hidden md:flex md:text-xs 2xl:text-base md:space-x-12 2xl:space-x-16">
+      <nav
+        ref={navRef}
+        className="hidden md:flex md:text-xs 2xl:text-base md:space-x-12 2xl:space-x-16"
+      >
         {[
-          { href: "#nosotros", text: "Nosotros", isSpecial: false },
-          { href: "#servicios", text: "Servicios", isSpecial: false },
-          { href: "#cotizacion", text: "Cotizá tu operación", isSpecial: true },
-          { href: "#contacto", text: "Contacto", isSpecial: false },
-          { href: "#faqs", text: "FAQ's", isSpecial: false }
+          { href: '#nosotros', text: 'Nosotros', isSpecial: false },
+          { href: '#servicios', text: 'Servicios', isSpecial: false },
+          { href: '#cotizacion', text: 'Cotizá tu operación', isSpecial: true },
+          { href: '#contacto', text: 'Contacto', isSpecial: false },
+          { href: '#faqs', text: "FAQ's", isSpecial: false },
         ].map((item, index) => (
           <a
             key={index}
             href={item.href}
             className={`
               relative transition-all duration-300 ease-in-out pb-1
-              ${item.isSpecial 
-                ? 'text-[#FFAE2B]/80 hover:text-[#FFAE2B] font-medium' 
-                : 'text-white hover:text-white/70'
+              ${
+                item.isSpecial
+                  ? 'text-[#FFAE2B]/80 hover:text-[#FFAE2B] font-medium'
+                  : 'text-white hover:text-white/70'
               }
               hover:scale-105 hover:-translate-y-0.5
               before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 
               before:bg-gradient-to-r before:from-[#035EBB] before:to-[#002052]
               before:transition-all before:duration-300 before:ease-in-out
               hover:before:w-full
-              ${item.isSpecial ? 'before:from-[#FFAE2B] before:to-[#FFAE2B]' : ''}
+              ${
+                item.isSpecial ? 'before:from-[#FFAE2B] before:to-[#FFAE2B]' : ''
+              }
             `}
           >
             {item.text}
           </a>
         ))}
-      </nav> 
+      </nav>
 
       <GradientButton
         ref={buttonRef}
-        className={`
-          px-6 md:ml-12 2xl:ml-16 py-2.5 rounded-full font-semibold 
-          md:text-xs 2xl:text-base
-          ${isScrolled ? 'shadow-md' : ''}
-        `}
+        variant="navbar"
+        className={`${isScrolled ? 'shadow-md' : ''} md:ml-8 2xl:ml-14`}
       >
-        Iniciar
+        Explorar
       </GradientButton>
     </header>
   );

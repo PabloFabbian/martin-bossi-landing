@@ -7,6 +7,16 @@ html {
   background-color: #050f24;
 }
 
+::selection {
+  background-color: rgba(4, 102, 200, 0.7); /* Azul con 50% de opacidad */
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: rgba(4, 102, 200, 0.7);
+  color: #ffffff;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

@@ -7,23 +7,23 @@ import ganancia from '../assets/Benefits/ganancia.png';
 
 const benefits = [
   {
-    icon: <img src={trato} alt="icono trato" className="w-14 h-14" />,
+    icon: <img src={trato} alt="icono trato" className="w-14 h-14 select-none" />,
     text: "Tu aliado confiable en cada etapa del proceso logístico.",
   },
   {
-    icon: <img src={medalla} alt="icono medalla" className="w-14 h-14" />,
+    icon: <img src={medalla} alt="icono medalla" className="w-14 h-14 select-none" />,
     text: "Procesos validados y certificados para tu tranquilidad.",
   },
   {
-    icon: <img src={tiempo} alt="icono tiempo" className="mt-1 w-[3.25rem] h-[3.25rem]" />,
+    icon: <img src={tiempo} alt="icono tiempo" className="mt-1 w-[3.25rem] h-[3.25rem] select-none" />,
     text: "Menos burocracia, más velocidad en cada gestión.",
   },
   {
-    icon: <img src={buscar} alt="icono buscar" className="w-14 h-14" />,
+    icon: <img src={buscar} alt="icono buscar" className="w-14 h-14 select-none" />,
     text: "Detectamos oportunidades reales en origen y producto.",
   },
   {
-    icon: <img src={ganancia} alt="icono ganancia" className="w-14 h-14" />,
+    icon: <img src={ganancia} alt="icono ganancia" className="w-14 h-14 select-none" />,
     text: "Optimizamos tu logística para generar mayor rentabilidad.",
   },
 ];

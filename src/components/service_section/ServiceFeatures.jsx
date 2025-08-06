@@ -8,8 +8,8 @@ const ServiceFeatures = ({ features }) => {
           key={index}
           className="bg-gradient-to-br from-[#001d3d]/60 to-[#001645]/40 p-4 rounded-xl border border-[#0353A4]/20 hover:border-[#0466C8]/50 shadow-sm hover:shadow-md transition-all duration-250"
         >
-          <h3 className="text-white font-semibold text-sm mb-1 select-none">{item.title}</h3>
-          <p className="text-[#7D8597] text-xs select-none">{item.description}</p>
+          <h3 className="text-white font-semibold text-sm mb-1 hover:cursor-default">{item.title}</h3>
+          <p className="text-[#7D8597] text-xs hover:cursor-default">{item.description}</p>
         </div>
       ))}
     </div>
