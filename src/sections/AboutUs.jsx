@@ -19,7 +19,7 @@ const Connections = () => {
         <div className="flex flex-col justify-center gap-6">
           <p className="text-white text-xs uppercase tracking-wide">Conexiones</p>
           <h2 className="text-white text-4xl md:text-4xl 2xl:text-5xl font-semibold leading-tight">
-            Tu socio estratégico<br />en comercio exterior
+            Tu socio estratégico<br />en <u className="text-[#0466c8]">comercio exterior</u>
           </h2>
           <p className="text-white/80 text-sm max-w-md">
             Ofrecemos asesoría integral en comercio internacional. Nuestra experiencia y tecnología garantizan un proceso ágil y eficiente.

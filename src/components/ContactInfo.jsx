@@ -2,12 +2,15 @@ import React from 'react';
 
 const ContactInfo = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <p className="text-slate-300 text-sm font-medium mb-2 ml-0.5">Contactanos</p>
+        <p className="text-slate-300 text-xs font-medium mb-2 ml-0.5">ASESORÍA</p>
         <h1 className="text-[2.6rem] font-normal mb-6">Contactanos hoy</h1>
-        <p className="text-slate-300 text-lg leading-relaxed max-w-[425px]">
-          Estamos aquí para ayudarte con tus necesidades de importación.
+        <p className="text-slate-300 text-lg leading-relaxed max-w-[500px]">
+          Expandí tu negocio con el respaldo de expertos.
+        </p>
+        <p className="text-slate-300 text-lg leading-relaxed max-w-[500px] mt-3">
+          Te guiamos paso a paso para exportar con seguridad, eficiencia y visión estratégica.
         </p>
       </div>
 
@@ -41,9 +44,10 @@ const ContactInfo = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </div>
-          <span className="text-white">
-            Calle Ejemplo 123, Ciudad, Estado 2000 AU
-          </span>
+          <div>
+            <p className="text-white">Avenida Santa Fe 1170, Acassuso</p>
+            <p className="text-white">Zona Norte | Buenos Aires, Argentina</p>
+          </div>
         </div>
       </div>
     </div>

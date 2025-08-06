@@ -34,7 +34,7 @@ const StepItem = ({ step, title, description, showLine = true, index = 0 }) => {
   }, []);
 
   return (
-    <div ref={ref} className="relative pl-10">
+    <div ref={ref} className="relative pl-10 select-none">
       {showLine && <div className="absolute top-0 left-3 w-px h-full bg-white/30"></div>}
 
       <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-white text-[#0D1224] flex items-center justify-center text-sm font-bold shadow-md">
