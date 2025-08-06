@@ -35,8 +35,11 @@ const Benefits = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const index = Number(entry.target.getAttribute('data-index'));
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up');
+            setTimeout(() => {
+              entry.target.classList.add('flip-in');
+            }, index * 150);
             observer.unobserve(entry.target);
           }
         });
@@ -53,12 +56,13 @@ const Benefits = () => {
 
   return (
     <section className="bg-gradient-to-br from-[#0C0C1C] to-[#13182C] pt-16 pb-[4.75rem] px-6 md:px-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 text-left">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 text-left perspective">
         {benefits.map((benefit, index) => (
           <div
             key={index}
+            data-index={index}
             ref={(el) => (itemRefs.current[index] = el)}
-            className="opacity-0 transform translate-y-6 transition-all duration-700 ease-out flex flex-col items-start text-left gap-4"
+            className="benefit-card opacity-0 rotateY-90 flex flex-col items-start text-left gap-4 transition-transform duration-700 ease-out"
           >
             {benefit.icon}
             <p className="text-white text-sm md:text-base 2xl:text-lg leading-relaxed min-h-[4.5rem]">

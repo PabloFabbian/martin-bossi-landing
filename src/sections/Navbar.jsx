@@ -5,8 +5,6 @@ import Logo from '../assets/isologo_night.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
 
   const headerRef = useRef(null);
   const logoRef = useRef(null);
@@ -89,17 +87,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      setIsScrolled(currentScrollY > 50);
-
-      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -113,10 +101,9 @@ const Header = () => {
         fixed top-0 left-0 w-full flex justify-between items-center md:px-10 2xl:px-14 bg-[#001022]/70
         rounded-b-3xl z-50
         transition-transform transition-opacity duration-500 ease-in-out
-        ${isVisible ? 'bg-[#001022]/70 translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
         ${isScrolled 
           ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)] backdrop-blur-[3px]' 
-          : 'md:py-2.5 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
+          : 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
         }
       `}
     >
@@ -160,7 +147,7 @@ const Header = () => {
             {item.text}
           </a>
         ))}
-      </nav>
+      </nav> 
 
       <GradientButton
         ref={buttonRef}

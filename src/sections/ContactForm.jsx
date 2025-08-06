@@ -36,7 +36,6 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
   const handleDropdownSelect = useCallback((dropdownName, value) => {
     updateField(dropdownName, value);
     closeAllDropdowns();
-    // Limpiar error del campo cuando se selecciona un valor
     if (fieldErrors[dropdownName]) {
       setFieldErrors(prev => {
         const newErrors = { ...prev };
@@ -46,12 +45,10 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     }
   }, [updateField, closeAllDropdowns, fieldErrors]);
 
-  // Función para limpiar errores cuando el usuario empieza a escribir
   const handleInputChangeWithErrorClear = useCallback((e) => {
     const { name } = e.target;
     handleInputChange(e);
     
-    // Limpiar error del campo cuando el usuario empieza a escribir
     if (fieldErrors[name]) {
       setFieldErrors(prev => {
         const newErrors = { ...prev };
@@ -61,18 +58,15 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     }
   }, [handleInputChange, fieldErrors]);
 
-  // ✅ Validación de email
   const isValidEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
 
-  // ✅ Validación general del formulario
   const validateForm = () => {
     const { nombre, correo, tipoProyecto, presupuesto, tema, detalles } = formData;
     const errors = {};
 
-    // Validar campos obligatorios
     if (!nombre.trim()) {
       errors.nombre = true;
     }
