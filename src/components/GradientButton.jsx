@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GradientButton = ({ children, className = '', variant = 'default', ...props }) => {
+const GradientButton = React.forwardRef(({ children, className = '', variant = 'default', ...props }, ref) => {
   const baseStyles = `
     relative overflow-hidden group select-none
     text-white text-[0.775rem] rounded-full px-6 py-2
@@ -29,10 +29,8 @@ const GradientButton = ({ children, className = '', variant = 'default', ...prop
       bg-gradient-to-r from-white/25 via-white/10 to-white/25
       overflow-hidden
 
-      transition transform duration-300 ease-in-out
-
-      hover:bg-gradient-to-r hover:from-white/50 hover:via-white/30 hover:to-white/50
-      hover:scale-103 hover:shadow-md
+      transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
+      hover:scale-110 hover:shadow-[0_0_25px_rgba(255,174,43,0.6)]
 
       focus-visible:ring-[#035EBB]/50 focus-visible:ring-2 focus-visible:ring-offset-2
 
@@ -41,21 +39,25 @@ const GradientButton = ({ children, className = '', variant = 'default', ...prop
       before:opacity-0 before:transition-opacity before:duration-700
       hover:before:opacity-40
 
-      after:absolute after:top-0 after:left-[-40%] after:w-48 after:h-full
-      after:bg-gradient-to-r after:from-transparent after:via-white/30 after:to-transparent
-      after:rotate-12 after:opacity-0 after:transition-transform after:duration-900
-      hover:after:opacity-40 hover:after:left-[150%]
+      after:absolute after:top-0 after:left-[-60%] after:w-[200%] after:h-full
+      after:bg-gradient-to-r after:from-transparent after:via-white/50 after:to-transparent
+      after:rotate-12 after:opacity-50
+      after:animate-shineLoop
+      hover:after:animate-shineFast
     `,
   };
 
   return (
     <button
+      ref={ref}
       className={`${baseStyles} ${variants[variant] || ''} ${className}`}
+      onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.95)'}
+      onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
       {...props}
     >
       <span className="relative z-10">{children}</span>
     </button>
   );
-};
+});
 
 export default GradientButton;

@@ -64,7 +64,7 @@ const Header = () => {
           ease: 'power2.out',
         })
         .to(
-          [logo, button],
+          logo,
           {
             y: 0,
             opacity: 1,
@@ -72,6 +72,26 @@ const Header = () => {
             rotationY: 0,
             duration: 0.8,
             ease: 'elastic.out(1, 0.75)',
+          },
+          '-=0.9'
+        )
+        .to(
+          button,
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotationY: 0,
+            duration: 0.9,
+            ease: 'elastic.out(1, 0.75)',
+            boxShadow: '0 0 15px rgba(255,174,43,0.6)',
+            onComplete: () => {
+              gsap.to(button, {
+                boxShadow: '0 0 0 rgba(255,174,43,0)',
+                duration: 0.8,
+                ease: 'power2.out'
+              });
+            }
           },
           '-=0.9'
         )
