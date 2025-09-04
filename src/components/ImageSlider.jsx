@@ -45,7 +45,6 @@ const ImageSlider = () => {
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
-      {/* Imagen con transición */}
       <div className="w-full md:w-1/2 h-64 md:h-96 relative overflow-hidden rounded-lg scale-90 border border-[#023E7D]/40">
         {loadedImages.map((src, index) => (
           <img
@@ -57,7 +56,6 @@ const ImageSlider = () => {
         ))}
       </div>
 
-      {/* Texto y botón */}
       <div className="w-full md:w-1/2 text-white space-y-6">
         <h2 className="text-3xl md:text-4xl font-bold leading-tight">
           Cotizá hoy. Importá sin <br className="hidden md:block" /> complicaciones.
@@ -65,15 +63,13 @@ const ImageSlider = () => {
         <p className="text-[#D1D5DB]">
           Importamos maquinaria, repuestos, insumos, productos y materia prima con eficiencia y seguimiento profesional.
         </p>
-        
-        {/* Indicadores */}
+
         <div className="flex gap-2 pt-4">
           {loadedImages.map((_, idx) => (
             <span
               key={idx}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                idx === currentImage ? 'bg-white' : 'bg-white/40'
-              }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentImage ? 'bg-white' : 'bg-white/40'
+                }`}
             />
           ))}
         </div>

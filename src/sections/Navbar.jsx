@@ -130,27 +130,21 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Función para manejar el scroll a secciones
   const scrollToSection = (sectionId, e) => {
     e.preventDefault();
 
-    // Si estamos en la página de política de privacidad, redirigir al home primero
     if (location.pathname !== '/') {
-      // Guardar la sección a la que queremos ir
       sessionStorage.setItem('scrollToSection', sectionId);
-      // Navegar al home
       navigate('/');
       return;
     }
 
-    // Si ya estamos en el home, hacer scroll directamente
     const element = document.querySelector(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Función para el botón Explorar
   const handleExploreClick = () => {
     if (location.pathname !== '/') {
       sessionStorage.setItem('scrollToSection', '#servicios');

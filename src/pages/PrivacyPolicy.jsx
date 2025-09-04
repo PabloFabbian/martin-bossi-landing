@@ -2,10 +2,9 @@ import React from 'react';
 
 const PrivacyPolicy = () => {
     return (
-        <div className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] min-h-screen py-24 px-6">
+        <div className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] min-h-screen md:py-24 2xl:py-32 px-6">
             <div className="max-w-4xl mx-auto">
                 <div className="bg-[#040616] shadow-xl rounded-xl p-8 md:p-12 border border-[#0353A4]/30">
-                    {/* Header */}
                     <div className="text-center mb-10 border-b border-[#0353A4]/30 pb-8">
                         <p className="text-white text-xs uppercase tracking-wide mb-6">Documento Legal</p>
                         <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
@@ -17,7 +16,6 @@ const PrivacyPolicy = () => {
                         <div className="w-24 h-1 bg-[#0466C8] mx-auto mt-4 rounded-full"></div>
                     </div>
 
-                    {/* Introduction */}
                     <div className="mb-12 bg-[#0A1128] p-6 rounded-xl border border-[#0353A4]/20">
                         <p className="text-[#979DAC] leading-relaxed">
                             En MARTIN BOSSI S.R.L., valoramos y respetamos la privacidad de nuestros
@@ -29,7 +27,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </div>
 
-                    {/* Section 1 */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             1. Responsable del tratamiento de datos
@@ -48,7 +45,6 @@ const PrivacyPolicy = () => {
 
                     <div className="border-t border-[#0353A4]/30 my-8"></div>
 
-                    {/* Section 2 */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             2. Información que recopilamos
@@ -77,7 +73,6 @@ const PrivacyPolicy = () => {
                         </div>
                     </section>
 
-                    {/* Finalidad de la recopilación */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             3. Finalidad de la recopilación (tratamiento de datos)
@@ -91,7 +86,6 @@ const PrivacyPolicy = () => {
                         </ul>
                     </section>
 
-                    {/* Conservación de los datos */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             4. Conservación de los datos
@@ -103,7 +97,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </section>
 
-                    {/* Comunicación de datos a terceros */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             5. Comunicación de datos a terceros
@@ -120,7 +113,6 @@ const PrivacyPolicy = () => {
                         </ul>
                     </section>
 
-                    {/* Uso de cookies */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             6. Uso de cookies
@@ -134,7 +126,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </section>
 
-                    {/* Seguridad de los datos */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             7. Seguridad de los datos
@@ -147,7 +138,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </section>
 
-                    {/* Derechos del titular de los datos */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             8. Derechos del titular de los datos
@@ -170,7 +160,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </section>
 
-                    {/* Autoridad de control */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             9. Autoridad de control
@@ -183,7 +172,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </section>
 
-                    {/* Cambios en la política de privacidad */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             10. Cambios en la política de privacidad
@@ -197,7 +185,6 @@ const PrivacyPolicy = () => {
                         </p>
                     </section>
 
-                    {/* Contacto */}
                     <section className="mb-12">
                         <h2 className="text-2xl font-semibold text-white mb-6 border-b-2 border-[#0353A4]/30 pb-2">
                             11. Contacto
@@ -215,7 +202,6 @@ const PrivacyPolicy = () => {
                         </div>
                     </section>
 
-                    {/* Footer */}
                     <div className="border-t border-[#0353A4]/30 pt-10 text-center text-sm">
                         <div className="w-16 h-1 bg-[#0353A4] mx-auto mb-6 rounded-full"></div>
                         <p className="text-white font-semibold mb-3 text-lg">

@@ -11,20 +11,15 @@ const Footer = () => {
     navigator.clipboard.writeText(text);
   };
 
-  // Función para manejar el scroll a secciones
   const scrollToSection = (sectionId, e) => {
     e.preventDefault();
 
-    // Si estamos en la página de política de privacidad, redirigir al home primero
     if (location.pathname !== '/') {
-      // Guardar la sección a la que queremos ir
       sessionStorage.setItem('scrollToSection', sectionId);
-      // Navegar al home
       navigate('/');
       return;
     }
 
-    // Si ya estamos en el home, hacer scroll directamente
     const element = document.querySelector(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -125,7 +120,7 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-white/40 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between text-sm">
-        <p className="text-center md:text-left mb-4 md:mb-0">© 2025 Relume. Todos los derechos reservados.</p>
+        <p className="text-center md:text-left mb-4 md:mb-0">© Web creada por PF Software | 2025</p>
         <div className="flex space-x-6">
           <Link
             to="/politica-de-privacidad"

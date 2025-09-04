@@ -37,7 +37,6 @@ const ImageCarousel = ({ images }) => {
     return () => clearInterval(interval);
   }, [loadedImages]);
 
-  // GSAP animation when enters viewport
   useEffect(() => {
     if (!carouselRef.current) return;
 
@@ -70,9 +69,8 @@ const ImageCarousel = ({ images }) => {
           key={index}
           src={img}
           alt="Logística internacional"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            index === currentImage ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentImage ? 'opacity-100' : 'opacity-0'
+            }`}
         />
       ))}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#001233]/50">
