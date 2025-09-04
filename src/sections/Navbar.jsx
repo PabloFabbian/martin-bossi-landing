@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../components/GradientButton';
 import Logo from '../assets/isologo_night.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const headerRef = useRef(null);
   const logoRef = useRef(null);
@@ -127,6 +130,39 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Función para manejar el scroll a secciones
+  const scrollToSection = (sectionId, e) => {
+    e.preventDefault();
+
+    // Si estamos en la página de política de privacidad, redirigir al home primero
+    if (location.pathname !== '/') {
+      // Guardar la sección a la que queremos ir
+      sessionStorage.setItem('scrollToSection', sectionId);
+      // Navegar al home
+      navigate('/');
+      return;
+    }
+
+    // Si ya estamos en el home, hacer scroll directamente
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Función para el botón Explorar
+  const handleExploreClick = () => {
+    if (location.pathname !== '/') {
+      sessionStorage.setItem('scrollToSection', '#servicios');
+      navigate('/');
+    } else {
+      const element = document.querySelector('#servicios');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <header
       ref={headerRef}
@@ -134,16 +170,16 @@ const Header = () => {
         fixed top-0 left-0 w-full flex justify-between items-center md:px-10 2xl:px-14 bg-[#001022]/70
         rounded-b-3xl z-50
         transition-transform transition-opacity duration-500 ease-in-out
-        ${
-          isScrolled
-            ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)] backdrop-blur-[3px]'
-            : 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
+        ${isScrolled
+          ? 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)] backdrop-blur-[3px]'
+          : 'md:py-2 2xl:py-4 shadow-[0_4px_15px_rgba(225,176,0,0.2)]'
         }
       `}
     >
-      <a
+      <Link
         ref={logoRef}
-        href="#inicio"
+        to="/"
+        onClick={() => sessionStorage.removeItem('scrollToSection')}
         className="transition-transform duration-300 hover:scale-105 select-none"
       >
         <img
@@ -151,7 +187,7 @@ const Header = () => {
           alt="Logo Bossi SRL"
           className="transition-all duration-300 ease-in-out h-16 md:h-12 2xl:h-14"
         />
-      </a>
+      </Link>
 
       <nav
         ref={navRef}
@@ -167,20 +203,19 @@ const Header = () => {
           <a
             key={index}
             href={item.href}
+            onClick={(e) => scrollToSection(item.href, e)}
             className={`
-              relative transition-all duration-300 ease-in-out pb-1
-              ${
-                item.isSpecial
-                  ? 'text-[#FFAE2B]/80 hover:text-[#FFAE2B] font-medium'
-                  : 'text-white hover:text-white/70'
+              relative transition-all duration-300 ease-in-out pb-1 cursor-pointer
+              ${item.isSpecial
+                ? 'text-[#FFAE2B]/80 hover:text-[#FFAE2B] font-medium'
+                : 'text-white hover:text-white/70'
               }
               hover:scale-105 hover:-translate-y-0.5
               before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 
               before:bg-gradient-to-r before:from-[#035EBB] before:to-[#002052]
               before:transition-all before:duration-300 before:ease-in-out
               hover:before:w-full
-              ${
-                item.isSpecial ? 'before:from-[#FFAE2B] before:to-[#FFAE2B]' : ''
+              ${item.isSpecial ? 'before:from-[#FFAE2B] before:to-[#FFAE2B]' : ''
               }
             `}
           >
@@ -192,7 +227,8 @@ const Header = () => {
       <GradientButton
         ref={buttonRef}
         variant="navbar"
-        className={`${isScrolled ? 'shadow-md' : ''} md:ml-8 2xl:ml-14`}
+        onClick={handleExploreClick}
+        className={`${isScrolled ? 'shadow-md' : ''} md:ml-8 2xl:ml-14 cursor-pointer`}
       >
         Explorar
       </GradientButton>

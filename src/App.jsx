@@ -1,25 +1,23 @@
 import { Toaster } from 'sonner';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './sections/Navbar';
-import Hero from './sections/Hero';
-import Benefits from './sections/Benefits';
-import AboutUs from './sections/AboutUs';
-import ContactSection from './sections/ContactSection';
 import Footer from './sections/Footer';
-import ServicesPage from './sections/ServicesPage';
+import Home from './pages/Home';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   return (
-    <>
+    <Router>
       <Toaster position="top-right" richColors />
-
       <Navbar />
-      <Hero />
-      <Benefits />
-      <AboutUs />
-      <ServicesPage />
-      <ContactSection />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />
+      </Routes>
+
       <Footer />
-    </>
+    </Router>
   );
 }
 
