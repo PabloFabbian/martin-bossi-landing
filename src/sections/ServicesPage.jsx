@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ImageCarousel from '../components/service_section/ImageCarousel';
 import ServiceFeatures from '../components/service_section/ServiceFeatures';
-import SectionHeader from '../components/service_section/SectionHeader';
 import GradientButton from '../components/GradientButton';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,26 +45,27 @@ const ServicesPage = () => {
 
   return (
     <section
-      className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] pt-20 pb-12 px-6 scroll-mt-12" id='servicios'
+      className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] py-20 px-6 md:px-16 scroll-mt-12"
+      id='servicios'
     >
-      <div className="max-w-6xl mx-auto"
-      ref={sectionRef}>
-        <SectionHeader
-          label="Servicios"
-          title={
-            <>
-              Soluciones de importación <span className="text-[#0466C8]">integrales</span>
-            </>
-          }
-          subtitle="Especialistas en gestión aduanera y comercio internacional"
-        />
+      <div className="max-w-7xl mx-auto"
+        ref={sectionRef}>
+        <div className="mb-12 text-center">
+          <p className="text-white text-xs uppercase tracking-wide mb-6">Servicios</p>
+          <h2 className="text-white text-4xl md:text-4xl 2xl:text-5xl font-semibold leading-tight mb-6">
+            Soluciones de importación <span className="text-[#0466C8]">integrales</span>
+          </h2>
+          <p className="text-white/80 text-lg">
+            Especialistas en gestión aduanera y comercio internacional
+          </p>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-8 items-center">
           <ImageCarousel images={images} />
           <div className="w-full lg:w-1/2">
             <ServiceFeatures features={features} />
             <div className="flex flex-col sm:flex-row gap-4">
-              <GradientButton className="px-6 py-3 text-xs font-semibold">
+              <GradientButton className="px-6 py-3 text-sm font-medium">
                 Solicitá tu cotización
               </GradientButton>
               <button className="text-[#979DAC] hover:text-white px-5 py-2 rounded-3xl border border-[#0353A4] hover:border-[#00A6D6] text-sm font-medium transition-colors">
