@@ -109,11 +109,12 @@ const Footer = () => {
             <div className="rounded-xl overflow-hidden shadow-[0_0_25px_#FFD70044]">
               <iframe
                 title="Ubicación"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.9387711894496!2d-73.9685432845937!3d40.8075359793215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2f62c21b0f0c3%3A0xc25e5e6b685ea8a!2s2880%20Broadway%2C%20New%20York%2C%20NY%2010025%2C%20EE.%20UU.!5e0!3m2!1ses!2sar!4v1684522160402!5m2!1ses!2sar"
+                src="https://maps.google.com/maps?q=Av.+Juan+B.+Alberdi+875,+Caballito,+Buenos+Aires&z=11&output=embed"
                 className="w-full aspect-[2/1] border-none"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
+
             </div>
           </div>
         </div>

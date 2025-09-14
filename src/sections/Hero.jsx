@@ -10,7 +10,6 @@ const Hero = () => {
   const buttonsRef = useRef(null);
 
   useEffect(() => {
-    // Precarga invisible de la imagen
     const img = new Image();
     img.src = Port;
 
@@ -66,7 +65,6 @@ const Hero = () => {
       className="relative h-lvh bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${Port})` }}
     >
-      {/* Precarga visible por si el navegador la ignora */}
       <img src={Port} alt="" className="hidden" loading="eager" />
 
       <div className="absolute inset-0 bg-black/60" />

@@ -7,9 +7,9 @@ const Connections = () => {
   return (
     <section className="relative py-20 px-6 md:px-16 scroll-mt-12" id="nosotros">
       <div className="absolute inset-0 z-0">
-        <img 
-          src={Map} 
-          alt="Mapa mundial" 
+        <img
+          src={Map}
+          alt="Mapa mundial"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/60"></div>

@@ -45,7 +45,7 @@ const ServicesPage = () => {
 
   return (
     <section
-      className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] py-20 px-6 md:px-16 scroll-mt-12"
+      className="2xl:bg-gradient-to-b 2xl:from-[#00000a] 2xl:via-[#012141] 2xl:to-[#050f24] md:bg-gradient-to-b md:from-[#0b0c1c] md:via-[#012141] md:to-[#050f24] py-20 px-6 md:px-16 scroll-mt-12"
       id='servicios'
     >
       <div className="max-w-7xl mx-auto"

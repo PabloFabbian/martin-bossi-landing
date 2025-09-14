@@ -205,7 +205,7 @@ const PrivacyPolicy = () => {
                     <div className="border-t border-[#0353A4]/30 pt-10 text-center text-sm">
                         <div className="w-16 h-1 bg-[#0353A4] mx-auto mb-6 rounded-full"></div>
                         <p className="text-white font-semibold mb-3 text-lg">
-                            "MARTIN BOSSI S.R.L." - Todos los derechos reservados
+                            "MARTIN BOSSI S.R.L." - Todos los derechos reservados*
                         </p>
                         <p className="text-[#979DAC] mb-3">
                             <strong>Última actualización:</strong> Septiembre 2025
