@@ -34,8 +34,8 @@ const Footer = () => {
 
           <div className="cursor-default">
             <p className="font-semibold">Dirección:</p>
-            <p>Avenida Santa Fe 1170, Acassuso - Zona Norte</p>
-            <p className="underline">Buenos Aires, Argentina</p>
+            <p>Av. Juan Alberdi N° 875 - 1°</p>
+            <p>Ciudad Autónoma de Buenos Aires, Argentina</p>
           </div>
 
           <div>
@@ -45,13 +45,13 @@ const Footer = () => {
               <p
                 className="underline cursor-pointer hover:text-yellow-400 transition-colors"
                 onClick={() => {
-                  handleCopy("+54 9 11 6852-9793");
+                  handleCopy("+54 9 11 7107-7116");
                   setCopied("telefono");
                   setTimeout(() => setCopied(null), 2000);
                 }}
                 title="Copiar número"
               >
-                +54 9 11 6852-9793
+                +54 9 11 7107-7116
               </p>
               {copied === "telefono" && (
                 <span className="absolute -top-7 left-0 text-xs bg-yellow-500 text-white px-2 py-1 rounded shadow-lg animate-fade-in">
@@ -70,7 +70,7 @@ const Footer = () => {
                 }}
                 title="Copiar email"
               >
-                adm.martin.bossi@gmail.com
+                martin.bossi.adm@gmail.com
               </p>
               {copied === "mail" && (
                 <span className="absolute -top-7 left-0 text-xs bg-yellow-500 text-white px-2 py-1 rounded shadow-lg animate-fade-in">
@@ -103,7 +103,7 @@ const Footer = () => {
               <a href="#servicios" onClick={(e) => scrollToSection('#servicios', e)} className="transition-transform duration-300 hover:scale-[1.025] hover:text-yellow-400 block cursor-pointer">Servicios</a>
               <a href="#cotizacion" onClick={(e) => scrollToSection('#cotizacion', e)} className="transition-transform duration-300 hover:scale-[1.025] hover:text-yellow-400 block cursor-pointer">Cotizá tu operación</a>
               <a href="#contacto" onClick={(e) => scrollToSection('#contacto', e)} className="transition-transform duration-300 hover:scale-[1.025] hover:text-yellow-400 block cursor-pointer">Contacto</a>
-              <a href="#faqs" onClick={(e) => scrollToSection('#faqs', e)} className="transition-transform duration-300 hover:scale-[1.025] hover:text-yellow-400 block cursor-pointer">FAQ's</a>
+              <a href="#faq" onClick={(e) => scrollToSection('#faq', e)} className="transition-transform duration-300 hover:scale-[1.025] hover:text-yellow-400 block cursor-pointer">FAQ's</a>
             </div>
 
             <div className="rounded-xl overflow-hidden shadow-[0_0_25px_#FFD70044]">

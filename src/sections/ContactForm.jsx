@@ -13,7 +13,7 @@ import CustomDropdown from '../components/ui/CustomDropdown';
 
 import { FORM_OPTIONS, INITIAL_FORM_DATA } from '../data/formOptions';
 
-const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
+const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   const containerRef = useRef(null);
   const innerRef = useRef(null);
   const { formData, handleInputChange, updateField } = useFormData(INITIAL_FORM_DATA);
@@ -33,6 +33,39 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
 
   useClickOutside(dropdownRefs, closeAllDropdowns);
 
+  // Pre-fill tema when component opens
+  useEffect(() => {
+    if (prefilledTema && isOpen) {
+      updateField('tema', prefilledTema);
+    }
+  }, [prefilledTema, isOpen, updateField]);
+
+  const handleClose = useCallback(() => {
+    // Animación de cierre
+    gsap.timeline({
+      defaults: { ease: 'power2.in' },
+      onComplete: () => onClose?.()
+    })
+      .to(innerRef.current.children, {
+        y: -15,
+        opacity: 0,
+        duration: 0.25,
+        stagger: 0.03
+      }, 0)
+      .to(innerRef.current, {
+        y: -25,
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.4,
+        filter: 'blur(5px)'
+      }, 0.1)
+      .to(combinedRef.current, {
+        opacity: 0,
+        duration: 0.45,
+        backdropFilter: 'blur(0px)'
+      }, 0.1);
+  }, [onClose, combinedRef]);
+
   const handleDropdownSelect = useCallback((dropdownName, value) => {
     updateField(dropdownName, value);
     closeAllDropdowns();
@@ -48,7 +81,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
   const handleInputChangeWithErrorClear = useCallback((e) => {
     const { name } = e.target;
     handleInputChange(e);
-    
+
     if (fieldErrors[name]) {
       setFieldErrors(prev => {
         const newErrors = { ...prev };
@@ -138,7 +171,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
 
       Object.keys(formData).forEach((key) => updateField(key, ''));
       setFieldErrors({});
-      onClose?.();
+      handleClose();
 
     } catch (error) {
       console.error('Error al enviar email:', error);
@@ -148,7 +181,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     } finally {
       setIsLoading(false);
     }
-  }, [formData, updateField, onClose]);
+  }, [formData, updateField, handleClose]);
 
   useEffect(() => {
     if (isOpen) {
@@ -164,7 +197,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
 
       const handleKeyDown = (e) => {
         if (e.key === 'Escape') {
-          onClose?.();
+          handleClose();
         }
 
         if (e.key === 'Tab') {
@@ -181,33 +214,36 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [isOpen, onClose, combinedRef]);
+  }, [isOpen, handleClose, combinedRef]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (isOpen) {
+        // Resetear todos los valores iniciales incluyendo el filtro blur
         gsap.set(combinedRef.current, { opacity: 0 });
-        gsap.set(innerRef.current, { y: 20, opacity: 0 });
+        gsap.set(innerRef.current, {
+          y: 20,
+          opacity: 0,
+          scale: 1,
+          filter: 'blur(0px)' // Resetear el blur explícitamente
+        });
         gsap.set(innerRef.current.children, { y: 10, opacity: 0 });
 
+        // Animación de apertura
         gsap.timeline({ defaults: { ease: 'power3.out' } })
           .to(combinedRef.current, { opacity: 1, duration: 0.35 })
-          .to(innerRef.current, { y: 0, opacity: 1, duration: 0.45 }, '-=0.15')
+          .to(innerRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 0.45,
+            filter: 'blur(0px)' // Asegurar que no hay blur durante la entrada
+          }, '-=0.15')
           .to(innerRef.current.children, {
             y: 0,
             opacity: 1,
             duration: 0.4,
             stagger: 0.07,
           }, '-=0.2');
-      } else {
-        gsap.timeline()
-          .to(innerRef.current.children, { y: -10, opacity: 0, duration: 0.2, stagger: 0.03 })
-          .to(innerRef.current, { y: -20, opacity: 0, duration: 0.25 }, '-=0.1')
-          .to(combinedRef.current, {
-            opacity: 0,
-            duration: 0.3,
-            onComplete: () => gsap.set(combinedRef.current, { pointerEvents: 'none' })
-          }, '-=0.1');
       }
     }, combinedRef);
 
@@ -221,7 +257,7 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
   return (
     <div
       ref={combinedRef}
-      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
       style={{ opacity: 0, pointerEvents: isOpen ? 'auto' : 'none' }}
       aria-hidden={!isOpen}
       aria-modal="true"
@@ -230,21 +266,29 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
     >
       <div
         ref={innerRef}
-        className="bg-[#030B1A] text-white rounded-3xl p-8 md:p-12 max-w-4xl lg:max-w-7xl w-full mx-4 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 shadow-[0_0_75px_30px_rgba(255,217,113,0.1)] transform translate-y-5 opacity-0 md:scale-75 2xl:scale-100"
+        className="bg-gradient-to-br from-[#001d3d]/90 to-[#000a1a]/95 backdrop-blur-md text-white rounded-2xl p-8 md:p-12 max-w-4xl lg:max-w-7xl w-full mx-4 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 shadow-[0_0_50px_20px_rgba(4,102,200,0.1)] border border-[#0353A4]/30 transform translate-y-5 opacity-0 md:scale-75 2xl:scale-100"
       >
         <button
-          onClick={onClose}
-          className="absolute top-4 right-5 text-gray-400 hover:text-white transition-colors duration-200 text-3xl font-bold z-10 focus:outline-none focus:ring-none focus:ring-offset-2 focus:ring-offset-[#030B1A] rounded-full"
+          onClick={handleClose}
+          className="absolute top-4 right-5 text-white/60 hover:text-white transition-colors duration-200 text-2xl leading-none font-bold z-10 rounded-full w-10 h-10 flex items-center justify-center"
           aria-label="Cerrar formulario"
           ref={(el) => firstFocusableElement.current = el}
         >
-          &times;
+          ×
         </button>
 
         <ContactInfo />
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold mb-2">Envíanos tu consulta</h2>
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl text-white font-semibold mb-2">
+              Envíanos tu consulta
+            </h2>
+            <p className="text-white/70 text-sm">
+              Completá el formulario y nos pondremos en contacto contigo
+            </p>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <InputField
@@ -323,10 +367,10 @@ const ContactForm = forwardRef(({ isOpen, onClose }, ref) => {
               hasError={fieldErrors.detalles}
             />
 
-            <div>
+            <div className="pt-4">
               <button
                 type="submit"
-                className={`bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#030B1A] shadow-lg hover:shadow-blue-500/20 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                className={`bg-gradient-to-r from-[#0466C8] to-[#0353A4] hover:from-[#0466C8]/90 hover:to-[#0353A4]/90 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0466C8]/50 focus:ring-offset-2 focus:ring-offset-transparent shadow-lg hover:shadow-[0_10px_30px_rgba(4,102,200,0.3)] hover:scale-105 ${isLoading ? 'opacity-70 cursor-not-allowed transform-none' : ''}`}
                 ref={submitButtonRef}
                 disabled={isLoading}
               >

@@ -4,6 +4,7 @@ import Benefits from '../sections/Benefits';
 import AboutUs from '../sections/AboutUs';
 import ServicesPage from '../sections/ServicesPage';
 import ContactSection from '../sections/ContactSection';
+import FAQ from '../sections/FAQ';
 
 const Home = () => {
     useEffect(() => {
@@ -25,6 +26,7 @@ const Home = () => {
             <Benefits />
             <AboutUs />
             <ServicesPage />
+            <FAQ />
             <ContactSection />
         </>
     );

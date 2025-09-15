@@ -192,7 +192,7 @@ const Header = () => {
           { href: '#servicios', text: 'Servicios', isSpecial: false },
           { href: '#cotizacion', text: 'Cotizá tu operación', isSpecial: true },
           { href: '#contacto', text: 'Contacto', isSpecial: false },
-          { href: '#faqs', text: "FAQ's", isSpecial: false },
+          { href: '#faq', text: "FAQ's", isSpecial: false },
         ].map((item, index) => (
           <a
             key={index}
