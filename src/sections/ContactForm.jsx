@@ -33,7 +33,6 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
 
   useClickOutside(dropdownRefs, closeAllDropdowns);
 
-  // Pre-fill tema when component opens
   useEffect(() => {
     if (prefilledTema && isOpen) {
       updateField('tema', prefilledTema);
@@ -41,7 +40,6 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   }, [prefilledTema, isOpen, updateField]);
 
   const handleClose = useCallback(() => {
-    // Animación de cierre
     gsap.timeline({
       defaults: { ease: 'power2.in' },
       onComplete: () => onClose?.()
@@ -219,24 +217,22 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (isOpen) {
-        // Resetear todos los valores iniciales incluyendo el filtro blur
         gsap.set(combinedRef.current, { opacity: 0 });
         gsap.set(innerRef.current, {
           y: 20,
           opacity: 0,
           scale: 1,
-          filter: 'blur(0px)' // Resetear el blur explícitamente
+          filter: 'blur(0px)'
         });
         gsap.set(innerRef.current.children, { y: 10, opacity: 0 });
 
-        // Animación de apertura
         gsap.timeline({ defaults: { ease: 'power3.out' } })
           .to(combinedRef.current, { opacity: 1, duration: 0.35 })
           .to(innerRef.current, {
             y: 0,
             opacity: 1,
             duration: 0.45,
-            filter: 'blur(0px)' // Asegurar que no hay blur durante la entrada
+            filter: 'blur(0px)'
           }, '-=0.15')
           .to(innerRef.current.children, {
             y: 0,

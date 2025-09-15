@@ -1,59 +1,79 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ContactForm from "./ContactForm";
 import GradientButton from "../components/GradientButton";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ContactCTA = () => {
   const [showForm, setShowForm] = useState(false);
   const sectionRef = useRef(null);
-  const h1Ref = useRef(null);
-  const h2Ref = useRef(null);
-  const pRef = useRef(null);
-  const btnRef = useRef(null);
+  const contentRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const ctx = gsap.context(() => {
-            gsap.from(h1Ref.current, {
-              y: 50,
-              opacity: 0,
-              duration: 0.6,
-              ease: "power2.out",
-            });
-            gsap.from(h2Ref.current, {
-              y: 50,
-              opacity: 0,
-              duration: 0.6,
-              delay: 0.2,
-              ease: "power2.out",
-            });
-            gsap.from(pRef.current, {
-              y: 40,
-              opacity: 0,
-              duration: 0.6,
-              delay: 0.4,
-              ease: "power2.out",
-            });
-            gsap.from(btnRef.current, {
-              y: 30,
-              opacity: 0,
-              duration: 0.6,
-              delay: 0.6,
-              ease: "power2.out",
-            });
-          }, sectionRef);
+    const ctx = gsap.context(() => {
+      const title = contentRef.current.querySelector('.cta-title');
+      const subtitle = contentRef.current.querySelector('.cta-subtitle');
+      const description = contentRef.current.querySelector('.cta-description');
+      const button = contentRef.current.querySelector('.cta-button');
+      const note = contentRef.current.querySelector('.cta-note');
+      const divider = contentRef.current.querySelector('.cta-divider');
 
-          observer.disconnect();
+      gsap.fromTo(
+        [title, subtitle, description],
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
         }
-      },
-      { threshold: 0.3 }
-    );
+      );
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
+      gsap.fromTo(
+        [button, note],
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
-    return () => observer.disconnect();
+      if (divider) {
+        gsap.fromTo(
+          divider,
+          { opacity: 0, scaleX: 0 },
+          {
+            opacity: 1,
+            scaleX: 1,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: divider,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   const toggleForm = useCallback(() => {
@@ -65,56 +85,61 @@ const ContactCTA = () => {
   }, []);
 
   return (
-    <section className="scroll-mt-[6.5rem]" id="cotizacion">
-      <div
-        ref={sectionRef}
-        className="relative text-white text-center pt-24 px-6 overflow-hidden"
-      >
-        <div>
-          <div className="hidden lg:block absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/4">
-            <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M100 0C44.7715 0 0 44.7715 0 100C0 155.229 44.7715 200 100 200C155.229 200 200 155.229 200 100C200 44.7715 155.229 0 100 0Z" fill="url(#paint0_radial_101_23)" fillOpacity="0.2"/>
-              <defs>
-                <radialGradient id="paint0_radial_101_23" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(100 100) rotate(90) scale(100)">
-                  <stop stopColor="#4F46E5"/>
-                  <stop offset="1" stopColor="#4F46E5" stopOpacity="0"/>
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
+    <section className="md:scroll-mt-[6.5rem] 2xl:scroll-mt-40" id="cotizacion">
+      <div className="relative">
+        <svg
+          className="absolute -top-1 left-0 w-full h-16"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="#001d3d"
+            d="M0,224L1440,128L1440,320L0,320Z"
+          ></path>
+        </svg>
 
-          <div className="relative z-10">
-            <h1 ref={h1Ref} className="text-4xl md:text-[2.75rem] 2xl:text-5xl font-medium mb-6">
-              ¡Contáctanos hoy!
-            </h1>
-            <h2 ref={h2Ref} className="text-3xl md:text-[2.8rem] 2xl:text-5xl font-medium mb-6">
-              Tu solución logística
-            </h2>
-            <p ref={pRef} className="text-base md:text-base 2xl:text-lg max-w-xl mx-auto mb-10">
-              Descubre cómo podemos facilitar tus operaciones de comercio exterior y optimizar tu logística internacional.
-            </p>
-            <div ref={btnRef}>
-              <GradientButton
-                onClick={toggleForm}
-                className="px-8 py-3 text-base font-medium"
-                aria-expanded={showForm}
-                aria-controls="contact-form-modal"
-              >
-                Consultanos
-              </GradientButton>
+        <div
+          ref={sectionRef}
+          className="2xl:bg-gradient-to-b 2xl:from-[#001d3d] 2xl:via-[#001d3d] 2xl:to-[#001d3d] md:bg-gradient-to-b md:from-[#050f24] md:via-[#001d3d] md:to-[#001d3d] text-white text-center py-12 px-6 md:px-16"
+        >
+          <div className="max-w-7xl mx-auto">
+            <div ref={contentRef}>
+              <p className="cta-title text-white text-xs uppercase tracking-wide mb-6">
+                Cotización
+              </p>
+
+              <h1 className="cta-subtitle text-white text-4xl md:text-4xl 2xl:text-5xl font-semibold leading-tight mb-6">
+                ¡Contáctanos <span className="text-[#0466C8]">hoy!</span>
+              </h1>
+
+              <p className="cta-description text-white/80 text-lg mb-8">
+                Tu solución logística
+              </p>
+
+              <p className="text-xl md:text-2xl text-white/70 mb-12 font-light leading-relaxed">
+                Y obtené una cotización personalizada para tu próxima operación
+              </p>
+
+              <div className="space-y-6">
+                <GradientButton
+                  onClick={toggleForm}
+                  className="cta-button px-10 py-5 text-lg font-medium hover:scale-105 transition-transform duration-200"
+                  aria-expanded={showForm}
+                  aria-controls="contact-form-modal"
+                >
+                  Solicitar Cotización
+                </GradientButton>
+
+                <p className="cta-note text-sm text-white/50">
+                  Respuesta en menos de 24 horas
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/4">
-            <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="50" y="50" width="100" height="100" rx="20" transform="rotate(45 100 100)" fill="url(#paint0_linear_101_25)" fillOpacity="0.2"/>
-              <defs>
-                <linearGradient id="paint0_linear_101_25" x1="100" y1="50" x2="100" y2="150" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#4F46E5"/>
-                  <stop offset="1" stopColor="#4F46E5" stopOpacity="0"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <div className="cta-divider mt-16 flex justify-center">
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#0466C8]/50 to-transparent"></div>
+            </div>
           </div>
         </div>
       </div>

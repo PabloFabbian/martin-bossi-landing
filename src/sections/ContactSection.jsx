@@ -3,7 +3,7 @@ import ContactCTA from './ContactCTA';
 
 const ContactSection = () => {
   return (
-    <div className='bg-gradient-to-b from-[#050f24] to-[#011c41] pb-28'>
+    <div className='bg-gradient-to-b from-[#001d3d] to-[#050f24]'>
       <ContactCTA />
     </div>
   );

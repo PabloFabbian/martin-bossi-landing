@@ -33,7 +33,7 @@ const ContactInfo = () => {
             </svg>
           </div>
           <a href="tel:+5491171077116" className="text-white hover:text-[#0466C8] transition-colors duration-300 underline">
-            +54 9 11 7107 7116
+            +54 9 11 7107-7116
           </a>
         </div>
 

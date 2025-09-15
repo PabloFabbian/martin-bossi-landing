@@ -54,7 +54,6 @@ const FAQ = () => {
         const description = el.querySelector('.faq-description');
         const cta = el.querySelector('.faq-cta');
 
-        // Animación del título y descripción
         gsap.fromTo(
             [title, subtitle, description],
             { opacity: 0, y: 30 },
@@ -72,7 +71,6 @@ const FAQ = () => {
             }
         );
 
-        // Animación escalonada para cada item del FAQ
         gsap.fromTo(
             items,
             { opacity: 0, y: 30 },
@@ -90,7 +88,6 @@ const FAQ = () => {
             }
         );
 
-        // Animación del CTA
         if (cta) {
             gsap.fromTo(
                 cta,
@@ -115,7 +112,7 @@ const FAQ = () => {
             <section
                 id="faq"
                 ref={sectionRef}
-                className="2xl:bg-gradient-to-b 2xl:from-[#050f24] 2xl:via-[#001d3d] 2xl:to-[#00000a] md:bg-gradient-to-b md:from-[#050f24] md:via-[#001d3d] md:to-[#0b0c1c] py-20 px-6 md:px-16 scroll-mt-12"
+                className="2xl:bg-gradient-to-b 2xl:from-[#050f24] 2xl:via-[#001d3d] 2xl:to-[#001d3d] md:bg-gradient-to-b md:from-[#050f24] md:via-[#001d3d] md:to-[#001d3d] py-20 px-6 md:px-16 md:scroll-mt-12 2xl:scroll-mt-20"
             >
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
