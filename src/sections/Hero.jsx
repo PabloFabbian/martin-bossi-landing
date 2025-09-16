@@ -11,12 +11,10 @@ const Hero = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
 
   useEffect(() => {
-    // Obtener la altura del navbar después de que el componente se monte
     const navbar = document.querySelector('nav, header, [class*="navbar"], [class*="Navbar"]');
     if (navbar) {
       setNavbarHeight(navbar.offsetHeight);
     } else {
-      // Valor por defecto si no encuentra el navbar (ajusta según necesites)
       setNavbarHeight(80);
     }
   }, []);
@@ -26,16 +24,15 @@ const Hero = () => {
     img.src = Port;
 
     const ctx = gsap.context(() => {
-      // Optimizamos las animaciones para móviles, haciéndolas más rápidas y simples
       if (titleRef.current) {
         gsap.fromTo(
           titleRef.current,
-          { y: 20, opacity: 0 }, // Reducimos el desplazamiento en Y
+          { y: 20, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8, // Hacemos la animación más rápida
-            delay: 1.5, // Reducimos el delay para que aparezca antes
+            duration: 0.8,
+            delay: 1.5,
             ease: 'power3.out',
           }
         );
@@ -43,13 +40,13 @@ const Hero = () => {
 
       gsap.fromTo(
         [paragraph1Ref.current, paragraph2Ref.current],
-        { y: 15, opacity: 0 }, // Reducimos el desplazamiento en Y
+        { y: 15, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.7, // Hacemos la animación más rápida
-          delay: 1, // Reducimos el delay para que aparezca antes
-          stagger: 0.15, // Reducimos el stagger
+          duration: 0.7,
+          delay: 1,
+          stagger: 0.15,
           ease: 'power3.out',
         }
       );
@@ -57,12 +54,12 @@ const Hero = () => {
       if (buttonsRef.current) {
         gsap.fromTo(
           buttonsRef.current,
-          { y: 10, opacity: 0 }, // Reducimos el desplazamiento en Y
+          { y: 10, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            delay: 1.3, // Reducimos el delay
-            duration: 0.6, // Hacemos la animación más rápida
+            delay: 1.3,
+            duration: 0.6,
             ease: 'power2.out',
           }
         );

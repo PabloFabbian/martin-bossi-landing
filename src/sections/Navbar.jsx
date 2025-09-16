@@ -26,7 +26,6 @@ const Header = () => {
     if (header && logo) {
       const tl = gsap.timeline();
 
-      // Desktop header animation
       if (window.innerWidth >= 768) {
         gsap.set(header, {
           y: -120,
@@ -133,7 +132,6 @@ const Header = () => {
             ease: 'bounce.out',
           });
       } else {
-        // Mobile animations
         gsap.set(header, {
           y: -100,
           opacity: 0,
@@ -188,7 +186,6 @@ const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Detectar sección activa
       const sections = ['nosotros', 'servicios', 'cotizacion', 'faq', 'contacto'];
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
@@ -202,7 +199,7 @@ const Header = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Ejecutar una vez al cargar
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -292,7 +289,6 @@ const Header = () => {
 
   return (
     <>
-      {/* Desktop Header */}
       <header
         ref={headerRef}
         className={`
@@ -357,13 +353,12 @@ const Header = () => {
         </GradientButton>
       </header>
 
-      {/* Bottom Navigation Bar - Mobile */}
       <nav
         ref={bottomNavRef}
         className="md:hidden fixed bottom-4 left-4 right-4 
-  bg-gradient-to-br from-[#001022]/85 to-[#000a1a]/90 
-  backdrop-blur-lg rounded-2xl border border-[rgba(4,102,200,0.4)] 
-  z-50 shadow-[0_10px_30px_rgba(4,102,200,0.2)]"
+        bg-gradient-to-br from-[#001022]/85 to-[#000a1a]/90 
+        backdrop-blur-lg rounded-2xl border border-[rgba(4,102,200,0.4)] 
+        z-50 shadow-[0_10px_30px_rgba(4,102,200,0.2)]"
       >
         <div className="flex justify-between items-center py-4 px-4">
 
@@ -377,7 +372,6 @@ const Header = () => {
                 className="flex flex-col items-center justify-center py-2 px-3 flex-1 text-center 
           transition-all duration-300 active:scale-95 group rounded-xl hover:bg-white/5"
               >
-                {/* Icon */}
                 <div
                   className={`transition-all duration-300 
             ${isActive
@@ -390,7 +384,6 @@ const Header = () => {
                   {item.icon}
                 </div>
 
-                {/* Texto visible solo en pantallas >425px */}
                 <span
                   className={`text-xs font-medium transition-all duration-300 
             max-[425px]:hidden

@@ -8,7 +8,7 @@ html {
 }
 
 ::selection {
-  background-color: rgba(4, 102, 200, 0.7); /* Azul con 50% de opacidad */
+  background-color: rgba(4, 102, 200, 0.7);
   color: #ffffff;
 }
 
@@ -65,10 +65,12 @@ html {
     opacity: 0;
     transform: translateX(-50px) scale(0.95);
   }
+
   60% {
     opacity: 1;
     transform: translateX(10px) scale(1.02);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -81,4 +83,15 @@ html {
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
+}
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
