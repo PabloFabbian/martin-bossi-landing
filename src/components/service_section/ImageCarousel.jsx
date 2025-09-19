@@ -62,7 +62,7 @@ const ImageCarousel = ({ images }) => {
   return (
     <div
       ref={carouselRef}
-      className="w-full lg:w-2/5 h-64 md:h-70 relative overflow-hidden mx-auto rounded-xl border border-[#023E7D]/30 bg-[#001645]/50"
+      className="w-full relative overflow-hidden mx-auto rounded-xl border border-[#023E7D]/30 bg-[#001645]/50 aspect-[16/9] max-w-[600px] lg:max-w-none"
     >
       {loadedImages.map((img, index) => (
         <img
