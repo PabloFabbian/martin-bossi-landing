@@ -11,7 +11,7 @@ const benefits = [
     text: "Tu aliado confiable en cada etapa del proceso logístico.",
   },
   {
-    icon: <img src={medalla} alt="icono medalla" className="w-14 h-14 select-none" />,
+    icon: <img src={medalla} alt="icono medalla" className="sm:w-14 w-16 h-auto ml-6 sm:-ml-1 select-none" />,
     text: "Procesos validados y certificados para tu tranquilidad.",
   },
   {
@@ -55,17 +55,17 @@ const Benefits = () => {
   }, []);
 
   return (
-    <section className="bg-gradient-to-br from-[#0C0C1C] to-[#13182C] pt-16 pb-[4.75rem] px-6 md:px-16">
+    <section className="bg-gradient-to-br from-[#0C0C1C] to-[#13182C] py-16 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 text-left perspective">
         {benefits.map((benefit, index) => (
           <div
             key={index}
             data-index={index}
             ref={(el) => (itemRefs.current[index] = el)}
-            className="benefit-card opacity-0 rotateY-90 flex flex-col items-start text-left gap-4 transition-transform duration-700 ease-out"
+            className="benefit-card opacity-0 rotateY-90 flex flex-col items-center sm:items-start text-center sm:text-left gap-4 transition-transform duration-700 ease-out"
           >
             {benefit.icon}
-            <p className="text-white text-sm md:text-base 2xl:text-lg leading-relaxed min-h-[4.5rem]">
+            <p className="text-white text-base sm:text-sm md:text-base 2xl:text-lg leading-relaxed min-h-[4.5rem] max-w-[20rem] mt-2">
               {benefit.text}
             </p>
           </div>
