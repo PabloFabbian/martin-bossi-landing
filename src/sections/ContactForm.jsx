@@ -30,8 +30,52 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
+  const [viewportHeight, setViewportHeight] = useState('100vh');
 
   useClickOutside(dropdownRefs, closeAllDropdowns);
+
+  useEffect(() => {
+    const updateViewportHeight = () => {
+      if (window.visualViewport) {
+        setViewportHeight(`${window.visualViewport.height}px`);
+      } else {
+        setViewportHeight(`${window.innerHeight}px`);
+      }
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateViewportHeight);
+    } else {
+      window.addEventListener('resize', updateViewportHeight);
+    }
+
+    // Configurar altura inicial
+    updateViewportHeight();
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', updateViewportHeight);
+      } else {
+        window.removeEventListener('resize', updateViewportHeight);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (prefilledTema && isOpen) {
@@ -253,8 +297,12 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   return (
     <div
       ref={combinedRef}
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
-      style={{ opacity: 0, pointerEvents: isOpen ? 'auto' : 'none' }}
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-6"
+      style={{
+        opacity: 0,
+        pointerEvents: isOpen ? 'auto' : 'none',
+        height: viewportHeight
+      }}
       aria-hidden={!isOpen}
       aria-modal="true"
       role="dialog"
@@ -262,31 +310,37 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
     >
       <div
         ref={innerRef}
-        className="bg-gradient-to-br from-[#001d3d]/90 to-[#000a1a]/95 backdrop-blur-md text-white rounded-2xl p-8 md:p-12 max-w-4xl lg:max-w-7xl w-full mx-4 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 shadow-[0_0_50px_20px_rgba(4,102,200,0.1)] border border-[#0353A4]/30 transform translate-y-5 opacity-0 md:scale-75 2xl:scale-100"
+        className="bg-gradient-to-br from-[#001d3d]/90 to-[#000a1a]/95 backdrop-blur-md text-white rounded-lg sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-7xl w-full overflow-y-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12 shadow-[0_0_50px_20px_rgba(4,102,200,0.1)] border border-[#0353A4]/30 transform translate-y-5 opacity-0"
+        style={{
+          maxHeight: `calc(${viewportHeight} - 1rem)`,
+          minHeight: 'auto'
+        }}
       >
         <button
           onClick={handleClose}
-          className="absolute top-4 right-5 text-white/60 hover:text-white transition-colors duration-200 text-2xl leading-none font-bold z-10 rounded-full w-10 h-10 flex items-center justify-center"
+          className="absolute top-2 right-3 sm:top-4 sm:right-5 text-white/60 hover:text-white transition-colors duration-200 text-xl sm:text-2xl leading-none font-bold z-10 rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-white/10"
           aria-label="Cerrar formulario"
           ref={(el) => firstFocusableElement.current = el}
         >
           ×
         </button>
 
-        <ContactInfo />
+        <div className="hidden lg:block">
+          <ContactInfo />
+        </div>
 
-        <div className="space-y-6">
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl text-white font-semibold mb-2">
+        <div className="space-y-4 sm:space-y-6 lg:col-span-1">
+          <div className="mb-4 sm:mb-6 md:mb-8 pt-6 sm:pt-0">
+            <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-semibold mb-2">
               Envíanos tu consulta
             </h2>
-            <p className="text-white/70 text-sm">
+            <p className="text-white/70 text-xs sm:text-sm">
               Completá el formulario y nos pondremos en contacto contigo
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <InputField
                 label="Nombre"
                 name="nombre"
@@ -308,7 +362,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <CustomDropdown
                 name="tipoProyecto"
                 label="Tipo de proyecto"
@@ -356,17 +410,26 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
               label="Detalles Adicionales"
               name="detalles"
               type="textarea"
-              rows={5}
+              rows={4}
               value={formData.detalles}
               onChange={handleInputChangeWithErrorClear}
               placeholder="Describe tu proyecto o consulta..."
               hasError={fieldErrors.detalles}
             />
 
-            <div className="pt-4">
+            <div className="block lg:hidden bg-white/5 rounded-lg p-4 mt-4 border border-white/10">
+              <h3 className="text-sm font-semibold text-white mb-2">Información de contacto</h3>
+              <div className="space-y-1 text-xs text-white/70">
+                <p>📧 contacto@tuempresa.com</p>
+                <p>📱 +54 11 1234-5678</p>
+                <p>📍 Buenos Aires, Argentina</p>
+              </div>
+            </div>
+
+            <div className="pt-2 sm:pt-4 pb-4">
               <button
                 type="submit"
-                className={`bg-gradient-to-r from-[#0466C8] to-[#0353A4] hover:from-[#0466C8]/90 hover:to-[#0353A4]/90 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0466C8]/50 focus:ring-offset-2 focus:ring-offset-transparent shadow-lg hover:shadow-[0_10px_30px_rgba(4,102,200,0.3)] hover:scale-105 ${isLoading ? 'opacity-70 cursor-not-allowed transform-none' : ''}`}
+                className={`w-full sm:w-auto bg-gradient-to-r from-[#0466C8] to-[#0353A4] hover:from-[#0466C8]/90 hover:to-[#0353A4]/90 text-white font-semibold px-6 sm:px-8 py-3 rounded-lg sm:rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0466C8]/50 focus:ring-offset-2 focus:ring-offset-transparent shadow-lg hover:shadow-[0_10px_30px_rgba(4,102,200,0.3)] hover:scale-105 text-sm sm:text-base ${isLoading ? 'opacity-70 cursor-not-allowed transform-none' : ''}`}
                 ref={submitButtonRef}
                 disabled={isLoading}
               >
