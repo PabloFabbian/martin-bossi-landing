@@ -87,21 +87,9 @@ const ContactCTA = () => {
   return (
     <section className="md:scroll-mt-[6.5rem] 2xl:scroll-mt-40" id="cotizacion">
       <div className="relative">
-        <svg
-          className="absolute -top-1 left-0 w-full h-16"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="#001d3d"
-            d="M0,224L1440,128L1440,320L0,320Z"
-          ></path>
-        </svg>
-
         <div
           ref={sectionRef}
-          className="2xl:bg-gradient-to-b 2xl:from-[#001d3d] 2xl:via-[#001d3d] 2xl:to-[#001d3d] md:bg-gradient-to-b md:from-[#050f24] md:via-[#001d3d] md:to-[#001d3d] text-white text-center py-12 px-6 md:px-16"
+          className="2xl:bg-gradient-to-b 2xl:from-[#001d3d] 2xl:via-[#001d3d] 2xl:to-[#001d3d] xs:bg-gradient-to-b xs:from-[#050f24] xs:via-[#001d3d] md:to-[#001d3d] text-white text-center py-12 px-6 md:px-16"
         >
           <div className="max-w-7xl mx-auto">
             <div ref={contentRef}>

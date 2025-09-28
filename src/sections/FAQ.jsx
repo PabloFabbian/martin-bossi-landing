@@ -112,35 +112,37 @@ const FAQ = () => {
             <section
                 id="faq"
                 ref={sectionRef}
-                className="2xl:bg-gradient-to-b 2xl:from-[#050f24] 2xl:via-[#001d3d] 2xl:to-[#001d3d] md:bg-gradient-to-b md:from-[#050f24] md:via-[#001d3d] md:to-[#001d3d] py-20 px-6 md:px-16 md:scroll-mt-12 2xl:scroll-mt-20"
+                className="bg-gradient-to-b from-[#050f24] via-[#001d3d] to-[#001d3d] py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-16 scroll-mt-16 md:scroll-mt-12 2xl:scroll-mt-20"
             >
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <p className="faq-title text-white text-xs uppercase tracking-wide mb-6">
+                    <div className="text-center mb-8 sm:mb-10 md:mb-12">
+                        <p className="faq-title text-white text-xs uppercase tracking-wide mb-4 sm:mb-6">
                             FAQ
                         </p>
-                        <h2 className="faq-subtitle text-white text-4xl md:text-4xl 2xl:text-5xl font-semibold leading-tight mb-6">
+                        <h2 className="faq-subtitle text-white text-2xl sm:text-3xl md:text-4xl 2xl:text-5xl font-semibold leading-tight mb-4 sm:mb-6 px-2">
                             Preguntas <span className="text-[#0466C8]">Frecuentes</span>
                         </h2>
-                        <p className="faq-description text-white/80 text-lg">
+                        <p className="faq-description text-white/80 text-base sm:text-lg px-2 max-w-2xl mx-auto">
                             Respondemos las dudas más comunes de nuestros clientes
                         </p>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                         {faqs.map((faq, index) => (
                             <div
                                 key={index}
                                 ref={el => itemRefs.current[index] = el}
-                                className="bg-gradient-to-br from-[#001d3d]/40 to-[#001645]/20 border border-[#0353A4]/30 rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-[#0466C8]/60 transition-all duration-300 backdrop-blur-sm"
+                                className="bg-gradient-to-br from-[#001d3d]/40 to-[#001645]/20 border border-[#0353A4]/30 rounded-lg sm:rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-[#0466C8]/60 transition-all duration-300 backdrop-blur-sm"
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full flex justify-between items-center p-6 text-left text-white font-medium hover:bg-white/5 transition-colors duration-200"
+                                    className="w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left text-white font-medium hover:bg-white/5 transition-colors duration-200 gap-3 sm:gap-4"
                                 >
-                                    <span className="text-base md:text-lg">{faq.question}</span>
+                                    <span className="text-sm sm:text-base md:text-lg leading-relaxed flex-1 pr-2">
+                                        {faq.question}
+                                    </span>
                                     <span
-                                        className={`ml-4 text-xl font-bold transform transition-all duration-300 ${openIndex === index
+                                        className={`text-xl font-bold transform transition-all duration-300 flex-shrink-0 ${openIndex === index
                                             ? "rotate-45 text-[#0466C8] scale-110"
                                             : "text-white/60 hover:text-white/80"
                                             }`}
@@ -149,12 +151,12 @@ const FAQ = () => {
                                     </span>
                                 </button>
                                 <div
-                                    className={`px-6 text-white/80 leading-relaxed transition-all duration-300 ease-in-out ${openIndex === index
-                                        ? "max-h-48 opacity-100 pb-6"
+                                    className={`px-4 sm:px-6 text-white/80 leading-relaxed transition-all duration-300 ease-in-out text-sm sm:text-base ${openIndex === index
+                                        ? "max-h-96 sm:max-h-48 opacity-100 pb-4 sm:pb-6"
                                         : "max-h-0 opacity-0 overflow-hidden pb-0"
                                         }`}
                                 >
-                                    <div className="border-t border-[#0353A4]/20 pt-4">
+                                    <div className="border-t border-[#0353A4]/20 pt-3 sm:pt-4">
                                         {faq.answer}
                                     </div>
                                 </div>
@@ -162,13 +164,13 @@ const FAQ = () => {
                         ))}
                     </div>
 
-                    <div className="faq-cta text-center mt-12">
-                        <p className="text-white/60 mb-4">
+                    <div className="faq-cta text-center mt-8 sm:mt-10 md:mt-12">
+                        <p className="text-white/60 mb-3 sm:mb-4 text-sm sm:text-base px-2">
                             ¿No encontraste la respuesta que buscabas?
                         </p>
                         <button
                             onClick={openContactFormWithFAQ}
-                            className="text-[#0466C8] hover:text-white px-6 py-3 rounded-full border border-[#0353A4] hover:border-[#0466C8] hover:bg-[#0466C8]/10 text-sm font-medium transition-all duration-300"
+                            className="text-[#0466C8] hover:text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-[#0353A4] hover:border-[#0466C8] hover:bg-[#0466C8]/10 text-sm font-medium transition-all duration-300 mx-2"
                         >
                             Contactanos directamente
                         </button>

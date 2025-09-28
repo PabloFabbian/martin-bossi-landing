@@ -2,7 +2,7 @@ import React from 'react';
 
 const PrivacyPolicy = () => {
     return (
-        <div className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] min-h-screen md:py-24 2xl:py-32 px-6">
+        <div className="bg-gradient-to-b from-[#0b0c1c] via-[#012141] to-[#050f24] min-h-screen py-8 md:py-24 2xl:py-32 px-6">
             <div className="max-w-4xl mx-auto">
                 <div className="bg-[#040616] shadow-xl rounded-xl p-8 md:p-12 border border-[#0353A4]/30">
                     <div className="text-center mb-10 border-b border-[#0353A4]/30 pb-8">
@@ -35,10 +35,10 @@ const PrivacyPolicy = () => {
                             <p className="text-[#979DAC]"><strong className="text-white">Titular:</strong> MARTIN BOSSI S.R.L.</p>
                             <p className="text-[#979DAC]"><strong className="text-white">CUIT:</strong> 30-71751300-9</p>
                             <p className="text-[#979DAC]">
-                                <strong className="text-white">Domicilio legal:</strong> 3136 oficina 7, B1640 San Isidro, Provincia de Buenos Aires
+                                <strong className="text-white">Domicilio legal:</strong> Av. Juan B. Alberdi N° 875, Depto. 1, Caballito C.A.B.A.
                             </p>
                             <p className="text-[#979DAC]">
-                                <strong className="text-white">Email de contacto:</strong> datos@dynamiclogistics.com.ar
+                                <strong className="text-white">Email de contacto:</strong> martin.bossi.adm@gmail.com
                             </p>
                         </div>
                     </section>

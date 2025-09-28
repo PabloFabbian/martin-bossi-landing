@@ -40,7 +40,6 @@ const ServicesPage = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header animation
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
@@ -59,7 +58,6 @@ const ServicesPage = () => {
         );
       }
 
-      // Content animation
       if (contentRef.current) {
         gsap.fromTo(
           contentRef.current,
@@ -93,7 +91,6 @@ const ServicesPage = () => {
       id="servicios"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div
           ref={headerRef}
           className="mb-8 sm:mb-10 md:mb-12 lg:mb-16 text-center"
@@ -114,21 +111,17 @@ const ServicesPage = () => {
           </p>
         </div>
 
-        {/* Content Section */}
         <div
           ref={contentRef}
           className="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-center lg:items-start"
         >
-          {/* Image Carousel */}
           <div className="w-full lg:w-1/2 order-2 lg:order-1 flex-shrink-0">
             <ImageCarousel images={images} />
           </div>
 
-          {/* Service Features & Buttons */}
           <div className="w-full lg:w-1/2 order-1 lg:order-2 space-y-6 sm:space-y-8 flex-shrink-0">
             <ServiceFeatures features={features} />
 
-            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
               <GradientButton className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 
                 text-sm sm:text-base font-medium hover:scale-105 transition-transform duration-300">
