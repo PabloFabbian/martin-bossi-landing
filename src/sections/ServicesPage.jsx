@@ -18,20 +18,20 @@ const ServicesPage = () => {
 
   const features = [
     {
-      title: 'Importación Integral',
-      description: 'Maquinaria, repuestos, insumos'
+      title: 'Tu comercio internacional, simple y seguro',
+      description: 'Importamos todo: desde maquinaria hasta insumos de consumo, cubriendo todas tus necesidades.'
     },
     {
-      title: 'Seguimiento Profesional',
-      description: 'Monitoreo completo del proceso'
+      title: 'Optimización Total de Costos',
+      description: 'Accede a precio de fábrica y maximiza tu margen. Te ayudamos a modernizar tu stock e incrementar ventas.'
     },
     {
-      title: 'Proceso Eficiente',
-      description: 'Optimización de tiempos y costos'
+      title: 'Claridad y Eficiencia para Todos',
+      description: 'Presupuestos ajustados a tu medida, ideales para empresas, PYMEs y emprendedores.'
     },
     {
-      title: 'Alcance Global',
-      description: 'Conexiones internacionales'
+      title: 'Proyección y Crecimiento Global',
+      description: 'Amplía tu oferta y calidad para dar a tu empresa mayor presencia en el mercado internacional.'
     },
   ];
 
@@ -86,7 +86,7 @@ const ServicesPage = () => {
       className="relative bg-gradient-to-b from-[#0b0c1c] sm:from-[#00000a] via-[#012141] sm:via-[#012141] to-[#050f24] sm:to-[#050f24] 
         py-12 sm:py-16 md:py-20 lg:py-24 
         px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-32
-        scroll-mt-8 sm:scroll-mt-12 md:scroll-mt-16 lg:scroll-mt-20 2xl:scroll-mt-36"
+        -scroll-mt-2 sm:scroll-mt-12 md:scroll-mt-16 lg:scroll-mt-20 2xl:scroll-mt-26"
       id="servicios"
     >
       <div className="max-w-7xl mx-auto">
@@ -106,7 +106,7 @@ const ServicesPage = () => {
 
           <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl 
             max-w-2xl mx-auto px-4 leading-relaxed">
-            Especialistas en gestión aduanera y comercio internacional
+            Somos especialistas en gestión aduanera y comercio internacional.
           </p>
         </div>
 

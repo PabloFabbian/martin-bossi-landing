@@ -5,7 +5,7 @@ import Map from '../assets/map.webp';
 
 const Connections = () => {
   return (
-    <section className="relative py-20 px-6 md:px-16 md:scroll-mt-12 2xl:scroll-mt-36" id="nosotros">
+    <section className="relative py-20 px-6 md:px-16 -scroll-mt-10 md:scroll-mt-16 2xl:scroll-mt-24" id="nosotros">
       <div className="absolute inset-0 z-0">
         <img
           src={Map}
@@ -22,7 +22,8 @@ const Connections = () => {
             Tu socio estratégico<br />en <u className="text-[#0466c8]">comercio exterior</u>
           </h2>
           <p className="text-white/80 text-sm max-w-md">
-            Ofrecemos asesoría integral en comercio internacional. Nuestra experiencia y tecnología garantizan un proceso ágil y eficiente.
+            Importamos mercaderías a Argentina, ya sea con tus proveedores
+            o encontrando nuevos socios y productos en el exterior.
           </p>
           <div className="flex gap-4 flex-wrap">
             <OutlineButton>Contáctanos</OutlineButton>
@@ -44,29 +45,34 @@ const Connections = () => {
         <div className="flex flex-col gap-4">
           <StepItem
             step="1"
-            title="Asesoría personalizada para tu negocio"
-            description="Te ayudamos a navegar el complejo mundo del comercio exterior."
+            title="Enfoque personalizado para tu negocio"
+            description="Investigamos tipo y calidad de producto, generamos reportes, presupuestos y propuestas claras.
+                        Podés acceder a contratos de servicios periódicos que se ajusten a tu realidad."
             showLine={true}
             index={0}
           />
           <StepItem
             step="2"
             title="Logística eficiente para tus importaciones"
-            description="Optimiza tus operaciones logísticas con nuestros expertos."
+            description="Contamos con profesionales del transporte multimodal, fletes y almacenamiento.
+                        Sabés en todo momento dónde está tu mercadería y la manipulamos en tiempo y forma hasta su destino."
             showLine={true}
             index={1}
           />
           <StepItem
             step="3"
-            title="Gestión de trámites simplificada y efectiva"
-            description="Nos encargamos de los trámites para que tú no tengas que hacerlo."
+            title="Trámites simplificados y gestión de pagos"
+            description="Nos ocupamos de permisos, certificados y validaciones ante organismos.
+                        Gestionamos de forma anticipada los requisitos de seguridad para despacho oportuno.
+                        Además, coordinamos el pago de la mercadería a tu proveedor y de los agentes de transporte y despachantes nacionales."
             showLine={true}
             index={2}
           />
           <StepItem
             step="4"
-            title="Importación confiable y segura de productos"
-            description="Nos encargamos de todo el proceso para que tus productos lleguen a tiempo y sin complicaciones, garantizando calidad y cumplimiento normativo."
+            title="Importación confiable y segura"
+            description="Te acompañamos paso a paso, garantizando que tu mercadería llegue a tiempo, 
+                        sin complicaciones y en cumplimiento con las normas vigentes."
             showLine={false}
             index={3}
           />

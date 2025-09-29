@@ -205,6 +205,7 @@ const Header = () => {
 
   const scrollToSection = (sectionId, e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (location.pathname !== '/') {
       sessionStorage.setItem('scrollToSection', sectionId);
@@ -214,7 +215,7 @@ const Header = () => {
 
     const element = document.querySelector(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -225,7 +226,7 @@ const Header = () => {
     } else {
       const element = document.querySelector('#servicios');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   };
@@ -254,7 +255,7 @@ const Header = () => {
     },
     {
       href: '#cotizacion',
-      text: 'Cotizar',
+      text: 'Cotizá tu operación',
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="12" y1="1" x2="12" y2="23" />
@@ -365,7 +366,8 @@ const Header = () => {
         className="md:hidden fixed bottom-4 left-4 right-4 
         bg-gradient-to-br from-[#001022]/85 to-[#000a1a]/90 
         backdrop-blur-lg rounded-2xl border border-[rgba(4,102,200,0.4)] 
-        z-50 shadow-[0_10px_30px_rgba(4,102,200,0.2)]"
+        z-50 shadow-[0_10px_30px_rgba(4,102,200,0.2)]
+        touch-manipulation"
       >
         <div className="flex justify-between items-center py-4 px-4">
 
@@ -376,8 +378,14 @@ const Header = () => {
                 key={index}
                 href={item.href}
                 onClick={(e) => scrollToSection(item.href, e)}
+                onTouchStart={(e) => {
+                  e.currentTarget.style.transform = 'scale(0.95)';
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
                 className="flex flex-col items-center justify-center py-2 px-3 flex-1 text-center 
-          transition-all duration-300 active:scale-95 group rounded-xl hover:bg-white/5"
+          transition-all duration-300 group rounded-xl hover:bg-white/5 touch-manipulation"
               >
                 <div
                   className={`transition-all duration-300 

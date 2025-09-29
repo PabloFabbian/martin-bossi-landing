@@ -13,15 +13,17 @@ const ContactCTA = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const title = contentRef.current.querySelector('.cta-title');
-      const subtitle = contentRef.current.querySelector('.cta-subtitle');
-      const description = contentRef.current.querySelector('.cta-description');
-      const button = contentRef.current.querySelector('.cta-button');
-      const note = contentRef.current.querySelector('.cta-note');
-      const divider = contentRef.current.querySelector('.cta-divider');
+      const title = contentRef.current?.querySelector('.cta-title');
+      const subtitle = contentRef.current?.querySelector('.cta-subtitle');
+      const description = contentRef.current?.querySelector('.cta-description');
+      const tagline = contentRef.current?.querySelector('.cta-tagline');
+      const button = contentRef.current?.querySelector('.cta-button');
+      const note = contentRef.current?.querySelector('.cta-note');
+      const divider = contentRef.current?.querySelector('.cta-divider');
 
+      // Animación de entrada para títulos y descripción
       gsap.fromTo(
-        [title, subtitle, description],
+        [title, subtitle, description, tagline].filter(Boolean),
         { opacity: 0, y: 30 },
         {
           opacity: 1,
@@ -37,8 +39,9 @@ const ContactCTA = () => {
         }
       );
 
+      // Animación para botón y nota
       gsap.fromTo(
-        [button, note],
+        [button, note].filter(Boolean),
         { opacity: 0, y: 20 },
         {
           opacity: 1,
@@ -54,6 +57,7 @@ const ContactCTA = () => {
         }
       );
 
+      // Animación del divisor
       if (divider) {
         gsap.fromTo(
           divider,
@@ -85,7 +89,11 @@ const ContactCTA = () => {
   }, []);
 
   return (
-    <section className="md:scroll-mt-[6.5rem] 2xl:scroll-mt-40" id="cotizacion">
+    <section
+      className="md:scroll-mt-[6.5rem] 2xl:scroll-mt-56"
+      id="cotizacion"
+      aria-labelledby="cta-heading"
+    >
       <div className="relative">
         <div
           ref={sectionRef}
@@ -93,28 +101,32 @@ const ContactCTA = () => {
         >
           <div className="max-w-7xl mx-auto">
             <div ref={contentRef}>
-              <p className="cta-title text-white text-xs uppercase tracking-wide mb-6">
+              <p className="cta-title text-white text-xs uppercase tracking-wide mb-4">
                 Cotización
               </p>
 
-              <h1 className="cta-subtitle text-white text-4xl md:text-4xl 2xl:text-5xl font-semibold leading-tight mb-6">
+              <h1
+                id="cta-heading"
+                className="cta-subtitle text-white text-4xl md:text-5xl 2xl:text-6xl font-semibold leading-tight mb-6"
+              >
                 ¡Contáctanos <span className="text-[#0466C8]">hoy!</span>
               </h1>
 
-              <p className="cta-description text-white/80 text-lg mb-8">
-                Tu solución logística
+              <p className="cta-description text-white/80 text-lg mb-4">
+                Recibí una cotización personalizada para tu próxima operación
               </p>
 
-              <p className="text-xl md:text-2xl text-white/70 mb-12 font-light leading-relaxed">
-                Y obtené una cotización personalizada para tu próxima operación
+              <p className="cta-tagline text-xl md:text-2xl text-white/70 font-light leading-relaxed mb-12">
+                La solución que tu importación necesita.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-5">
                 <GradientButton
                   onClick={toggleForm}
                   className="cta-button px-10 py-5 text-lg font-medium hover:scale-105 transition-transform duration-200"
                   aria-expanded={showForm}
                   aria-controls="contact-form-modal"
+                  aria-label="Solicitar cotización personalizada"
                 >
                   Solicitar Cotización
                 </GradientButton>

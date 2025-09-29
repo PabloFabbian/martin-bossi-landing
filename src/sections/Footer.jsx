@@ -5,7 +5,7 @@ import CookieModal from "../components/CookieModal";
 
 const Footer = () => {
   const [copied, setCopied] = useState(null);
-  const [showCookies, setShowCookies] = useState(false); // 🔹 agregado
+  const [showCookies, setShowCookies] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="bg-[#040616] text-white px-6 pt-12 pb-32 md:py-12" id="contacto">
+      <footer className="bg-[#040616] text-white px-6 pt-12 pb-32 md:py-12 -margin-top-20" id="contacto">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           <div className="space-y-4">
             <img src={Logo} alt="Logo Martin Bossi" className="w-32" />
@@ -124,17 +124,17 @@ const Footer = () => {
 
         <div className="border-t border-white/40 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between text-sm">
           <p className="text-center md:text-left mb-4 md:mb-0">© Web creada por PF Software | 2025</p>
-          <div className="flex space-x-6 mt-2 md:mt-0 underline sm:no-underline">
+          <div className="flex flex-row items-center justify-center gap-4 md:gap-6 mt-2 md:mt-0">
             <Link
               to="/politica-de-privacidad"
               onClick={() => window.scrollTo(0, 0)}
-              className="hover:underline"
+              className="underline sm:no-underline hover:underline whitespace-nowrap"
             >
               Política de Privacidad
             </Link>
             <button
               onClick={() => setShowCookies(true)}
-              className="hover:underline"
+              className="underline sm:no-underline hover:underline whitespace-nowrap"
             >
               Configuración de Cookies
             </button>

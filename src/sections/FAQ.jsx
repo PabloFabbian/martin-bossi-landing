@@ -114,7 +114,7 @@ const FAQ = () => {
             <section
                 id="faq"
                 ref={sectionRef}
-                className="bg-gradient-to-b from-[#050f24] via-[#001d3d] to-[#001d3d] py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-16 scroll-mt-16 md:scroll-mt-12 2xl:scroll-mt-20"
+                className="bg-gradient-to-b from-[#050f24] via-[#001d3d] to-[#001d3d] py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-16 scroll-mt-0 md:scroll-mt-12 2xl:scroll-mt-10"
             >
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -125,7 +125,7 @@ const FAQ = () => {
                             Preguntas <span className="text-[#0466C8]">Frecuentes</span>
                         </h2>
                         <p className="faq-description text-white/80 text-base sm:text-lg px-2 max-w-2xl mx-auto">
-                            Respondemos las dudas más comunes de nuestros clientes
+                            Todo lo que necesitas saber sobre nuestros servicios
                         </p>
                     </div>
 

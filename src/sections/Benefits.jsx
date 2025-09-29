@@ -12,7 +12,7 @@ const benefits = [
   },
   {
     icon: <img src={medalla} alt="icono medalla" className="sm:w-14 w-16 h-auto ml-6 sm:-ml-1 select-none" />,
-    text: "Procesos validados y certificados para tu tranquilidad.",
+    text: "Procesos validados y certificados que garantizan seguridad.",
   },
   {
     icon: <img src={tiempo} alt="icono tiempo" className="mt-1 w-[3.25rem] h-[3.25rem] select-none" />,
@@ -24,7 +24,7 @@ const benefits = [
   },
   {
     icon: <img src={ganancia} alt="icono ganancia" className="w-14 h-14 select-none" />,
-    text: "Optimizamos tu logística para generar mayor rentabilidad.",
+    text: "Optimizamos tu logística para impulsar mayor rentabilidad.",
   },
 ];
 

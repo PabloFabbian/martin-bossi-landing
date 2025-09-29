@@ -123,16 +123,16 @@ const Hero = () => {
                 ref={paragraph1Ref}
                 className="text-sm sm:text-base md:text-base 2xl:text-xl text-gray-200 leading-relaxed"
               >
-                Asistimos a empresas, pymes y emprendedores con experiencia, tecnología y
-                un enfoque sin complicaciones.
+                En Martin Bossi SRL acompañamos a empresas,
+                pymes y emprendedores con seriedad, compromiso y
+                visión de futuro.
               </p>
 
               <p
                 ref={paragraph2Ref}
                 className="text-sm sm:text-base md:text-base 2xl:text-xl text-gray-200 leading-relaxed"
               >
-                Nuestro trato cercano y personalizado asegura un proceso claro, seguro
-                y eficiente.
+                Hacemos de cada operación un proceso seguro, ágil y rentable desde el inicio hasta la entrega final.
               </p>
 
               <div
