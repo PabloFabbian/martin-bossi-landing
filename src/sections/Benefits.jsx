@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import trato from '../assets/Benefits/trato.png';
-import medalla from '../assets/Benefits/medalla.png';
-import tiempo from '../assets/Benefits/tiempo.png';
-import buscar from '../assets/Benefits/buscar.png';
-import ganancia from '../assets/Benefits/ganancia.png';
+import trato from '../assets/Benefits/trato.webp';
+import medalla from '../assets/Benefits/medalla.webp';
+import tiempo from '../assets/Benefits/tiempo.webp';
+import buscar from '../assets/Benefits/buscar.webp';
+import ganancia from '../assets/Benefits/ganancia.webp';
 
 const benefits = [
   {

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import Port from '../assets/port.webp';
-import IsolgoNight from '../assets/isologo_night.png';
+import IsolgoNight from '../assets/logo.png';
 import GradientButton from '../components/GradientButton';
 
 const Hero = () => {
@@ -86,11 +86,10 @@ const Hero = () => {
   return (
     <section
       id="inicio"
-      className="relative h-screen bg-cover bg-center bg-no-repeat"
+      className="relative h-screen bg-cover bg-top bg-no-repeat"
       style={{ backgroundImage: `url(${Port})` }}
     >
-      <div className="absolute inset-0 bg-black/60" />
-
+      <div className="absolute inset-0 bg-gradient-to-b from-[#001331]/40 to-black/50" />
       <div
         className="relative z-10 container mx-auto px-6 md:px-28 2xl:px-32 h-full flex flex-col justify-start md:justify-center pt-8 pb-24 md:pb-0"
         style={{ paddingTop: `${navbarHeight}px` }}
@@ -102,7 +101,7 @@ const Hero = () => {
           <img
             src={IsolgoNight}
             alt="Logo de la empresa"
-            className="h-20 mx-auto"
+            className="h-24 mx-auto drop-shadow-[0_16px_16px_rgba(0,29,61,0.9)]"
             loading="eager"
           />
         </div>

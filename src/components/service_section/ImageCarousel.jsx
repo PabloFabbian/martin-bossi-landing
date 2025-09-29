@@ -73,14 +73,26 @@ const ImageCarousel = ({ images }) => {
             }`}
         />
       ))}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#001233]/50">
+      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#001233]/40 via-[#001233]/60 to-[#001233]/40 backdrop-blur-sm">
         <div
-          className="h-full bg-[#0466C8] transition-all duration-5000 ease-linear"
+          className="h-full bg-gradient-to-r from-[#0466C8] via-[#0353A4] to-[#023E7D] shadow-[0_0_10px_rgba(4,102,200,0.5)] relative overflow-hidden"
           style={{
             width: `${((currentImage + 1) / loadedImages.length) * 100}%`,
+            transition: 'width 5000ms cubic-bezier(0.65, 0, 0.35, 1)',
           }}
-        ></div>
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+        </div>
       </div>
+      <style jsx>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+          animation: shimmer 2s infinite;
+        }
+      `}</style>
     </div>
   );
 };

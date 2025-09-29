@@ -1,7 +1,7 @@
 import React from 'react';
 import StepItem from '../components/StepItem';
 import OutlineButton from '../components/OutlineButton';
-import Map from '../assets/map.jpg';
+import Map from '../assets/map.webp';
 
 const Connections = () => {
   return (

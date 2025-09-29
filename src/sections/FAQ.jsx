@@ -29,7 +29,9 @@ const faqs = [
 ];
 
 const FAQ = () => {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState(() => {
+        return window.innerWidth >= 768 ? 0 : null;
+    });
     const [showContactForm, setShowContactForm] = useState(false);
     const sectionRef = useRef(null);
     const itemRefs = useRef([]);
@@ -132,7 +134,10 @@ const FAQ = () => {
                             <div
                                 key={index}
                                 ref={el => itemRefs.current[index] = el}
-                                className="bg-gradient-to-br from-[#001d3d]/40 to-[#001645]/20 border border-[#0353A4]/30 rounded-lg sm:rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-[#0466C8]/60 transition-all duration-300 backdrop-blur-sm"
+                                className={`bg-gradient-to-br from-[#001d3d]/40 to-[#001645]/20 border rounded-lg sm:rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-[#0466C8]/60 transition-all duration-300 backdrop-blur-sm ${openIndex === index
+                                    ? 'border-[#0466C8]/60 shadow-xl'
+                                    : 'border-[#0353A4]/30'
+                                    }`}
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}

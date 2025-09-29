@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../components/GradientButton';
-import Logo from '../assets/isologo_night.png';
+import Logo from '../assets/isologo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -304,7 +304,14 @@ const Header = () => {
         <Link
           ref={logoRef}
           to="/"
-          onClick={() => sessionStorage.removeItem('scrollToSection')}
+          onClick={(e) => {
+            sessionStorage.removeItem('scrollToSection');
+
+            if (location.pathname === '/') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
           className="transition-transform duration-300 hover:scale-105 select-none"
         >
           <img

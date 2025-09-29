@@ -5,6 +5,10 @@ import ImageCarousel from '../components/service_section/ImageCarousel';
 import ServiceFeatures from '../components/service_section/ServiceFeatures';
 import GradientButton from '../components/GradientButton';
 
+import solutions1 from '../assets/Solutions/solutions1.webp';
+import solutions2 from '../assets/Solutions/solutions2.webp';
+import solutions3 from '../assets/Solutions/solutions3.webp';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const ServicesPage = () => {
@@ -31,12 +35,7 @@ const ServicesPage = () => {
     },
   ];
 
-  const images = [
-    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80',
-    'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80',
-    'https://images.unsplash.com/photo-1608889825103-eb5a6f5adf58?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80',
-    'https://images.unsplash.com/photo-1600271886742-f049cd5b8a7b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80',
-  ];
+  const images = [solutions1, solutions2, solutions3];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
