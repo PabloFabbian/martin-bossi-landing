@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Logo from '../assets/isologo.png';
+import Logo from '../assets/isologo.webp';
 import CookieModal from "../components/CookieModal";
 
 const Footer = () => {

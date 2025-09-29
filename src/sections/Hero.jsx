@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import Port from '../assets/port.webp';
-import IsolgoNight from '../assets/logo.png';
+import IsolgoNight from '../assets/logo.webp';
 import GradientButton from '../components/GradientButton';
 
 const Hero = () => {

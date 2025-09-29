@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../components/GradientButton';
-import Logo from '../assets/isologo.png';
+import Logo from '../assets/isologo.webp';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
