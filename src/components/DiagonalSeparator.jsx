@@ -5,7 +5,6 @@ const DiagonalSeparator = ({ className = "" }) => (
         className={className}
         preserveAspectRatio="none"
     >
-        {/* Fondo para reemplazar transparencia */}
         <rect width="1000" height="100" fill="#001d3d" />
 
         <g fill="url(#grad)">

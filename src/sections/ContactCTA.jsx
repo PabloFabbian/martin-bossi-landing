@@ -21,7 +21,6 @@ const ContactCTA = () => {
       const note = contentRef.current?.querySelector('.cta-note');
       const divider = contentRef.current?.querySelector('.cta-divider');
 
-      // Animación de entrada para títulos y descripción
       gsap.fromTo(
         [title, subtitle, description, tagline].filter(Boolean),
         { opacity: 0, y: 30 },
@@ -39,7 +38,6 @@ const ContactCTA = () => {
         }
       );
 
-      // Animación para botón y nota
       gsap.fromTo(
         [button, note].filter(Boolean),
         { opacity: 0, y: 20 },
@@ -57,7 +55,6 @@ const ContactCTA = () => {
         }
       );
 
-      // Animación del divisor
       if (divider) {
         gsap.fromTo(
           divider,
