@@ -139,11 +139,25 @@ const Hero = () => {
                 ref={buttonsRef}
                 className="flex flex-col sm:flex-row justify-center lg:justify-start items-center pt-2 md:pt-4 gap-3 md:gap-4"
               >
-                <GradientButton className="w-full sm:w-auto px-6 py-3 text-xs font-semibold">
+                <GradientButton
+                  className="w-full sm:w-auto px-6 py-3 text-xs font-semibold"
+                  onClick={() => {
+                    document.getElementById('cotizacion')?.scrollIntoView({
+                      behavior: 'smooth'
+                    });
+                  }}
+                >
                   Solicitá tu cotización
                 </GradientButton>
 
-                <button className="w-full sm:w-auto border-2 border-white text-white px-7 py-3 rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 ease-in-out font-semibold text-xs select-none cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.025] focus:outline-none focus:ring-2 focus:ring-[#FFAE2B] focus:ring-offset-2 tracking-wide">
+                <button
+                  className="w-full sm:w-auto border-2 border-white text-white px-7 py-3 rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 ease-in-out font-semibold text-xs select-none cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.025] tracking-wide"
+                  onClick={() => {
+                    document.getElementById('benefits')?.scrollIntoView({
+                      behavior: 'smooth'
+                    });
+                  }}
+                >
                   Quiero más info.
                 </button>
               </div>

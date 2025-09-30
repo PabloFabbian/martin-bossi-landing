@@ -55,7 +55,7 @@ const Benefits = () => {
   }, []);
 
   return (
-    <section className="bg-gradient-to-br from-[#0C0C1C] to-[#13182C] py-16 px-6">
+    <section className="bg-gradient-to-br from-[#0C0C1C] to-[#13182C] py-16 px-6 scroll-mt-[4.25rem]" id="benefits">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 text-left perspective">
         {benefits.map((benefit, index) => (
           <div

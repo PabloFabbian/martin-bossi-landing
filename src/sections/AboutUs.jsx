@@ -26,9 +26,22 @@ const Connections = () => {
             o encontrando nuevos socios y productos en el exterior.
           </p>
           <div className="flex gap-4 flex-wrap">
-            <OutlineButton>Contáctanos</OutlineButton>
+            <OutlineButton
+              onClick={() => {
+                document.getElementById('contacto')?.scrollIntoView({
+                  behavior: 'smooth'
+                });
+              }}
+            >
+              Contáctanos
+            </OutlineButton>
             <button
-              className="group text-white text-sm font-medium flex items-center gap-1 tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAE2B] transition-all"
+              className="group text-white text-sm font-medium flex items-center gap-1 tracking-wide transition-all"
+              onClick={() => {
+                document.getElementById('servicios')?.scrollIntoView({
+                  behavior: 'smooth'
+                });
+              }}
             >
               <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-white group-hover:after:w-full after:transition-all after:duration-300">
                 Asesoría

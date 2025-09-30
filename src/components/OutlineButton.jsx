@@ -11,7 +11,6 @@ const OutlineButton = ({ children, className = '', ...props }) => {
         hover:bg-white hover:text-slate-900
         transition-all duration-300 ease-in-out
         hover:scale-[1.01] scale-90
-        focus:outline-none focus:ring-2 focus:ring-[#FFAE2B] focus:ring-offset-2
         select-none cursor-pointer
         ${className}
       `}

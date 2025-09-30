@@ -122,21 +122,25 @@ const ServicesPage = () => {
             <ServiceFeatures features={features} />
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
-              <GradientButton className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 
-                text-sm sm:text-base font-medium hover:scale-105 transition-transform duration-300">
-                Solicitá tu cotización
-              </GradientButton>
+              <a href="#cotizacion" className="w-full sm:w-auto">
+                <GradientButton className="w-full px-6 sm:px-8 py-3 sm:py-4 
+                  text-sm sm:text-base font-medium hover:scale-105 transition-transform duration-300">
+                  Solicitá tu cotización
+                </GradientButton>
+              </a>
 
-              <button className="w-full sm:w-auto text-[#979DAC] hover:text-white 
-                px-5 sm:px-6 py-3 sm:py-4 rounded-full 
-                border border-[#0353A4] hover:border-[#00A6D6] 
-                text-sm sm:text-base font-medium 
-                transition-all duration-300 ease-in-out
-                hover:bg-gradient-to-r hover:from-[#0353A4]/10 hover:to-[#00A6D6]/10
-                hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#0466C8] focus:ring-offset-2
-                active:scale-95">
-                Más información
-              </button>
+              <a href="#faq" className="w-full sm:w-auto">
+                <button className="w-full text-[#979DAC] hover:text-white 
+                  px-5 sm:px-6 py-3 sm:py-4 rounded-full 
+                  border border-[#0353A4] hover:border-[#00A6D6] 
+                  text-sm sm:text-base font-medium 
+                  transition-all duration-300 ease-in-out
+                  hover:bg-gradient-to-r hover:from-[#0353A4]/10 hover:to-[#00A6D6]/10
+                  hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#0466C8] focus:ring-offset-2
+                  active:scale-95">
+                  Más información
+                </button>
+              </a>
             </div>
           </div>
         </div>
