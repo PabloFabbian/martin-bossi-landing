@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import OptimizedImage from '../components/OptimizedImage';
 import trato from '../assets/Benefits/trato.webp';
 import medalla from '../assets/Benefits/medalla.webp';
 import tiempo from '../assets/Benefits/tiempo.webp';
@@ -7,23 +8,33 @@ import ganancia from '../assets/Benefits/ganancia.webp';
 
 const benefits = [
   {
-    icon: <img src={trato} alt="icono trato" className="w-14 h-14 select-none" />,
+    icon: trato,
+    alt: "icono trato",
+    className: "w-14 h-14",
     text: "Tu aliado confiable en cada etapa del proceso logístico.",
   },
   {
-    icon: <img src={medalla} alt="icono medalla" className="sm:w-14 w-16 h-auto ml-6 sm:-ml-1 select-none" />,
+    icon: medalla,
+    alt: "icono medalla",
+    className: "sm:w-14 w-16 h-auto ml-6 sm:-ml-1",
     text: "Procesos validados y certificados que garantizan seguridad.",
   },
   {
-    icon: <img src={tiempo} alt="icono tiempo" className="mt-1 w-[3.25rem] h-[3.25rem] select-none" />,
+    icon: tiempo,
+    alt: "icono tiempo",
+    className: "mt-1 w-[3.25rem] h-[3.25rem]",
     text: "Menos burocracia, más velocidad en cada gestión.",
   },
   {
-    icon: <img src={buscar} alt="icono buscar" className="w-14 h-14 select-none" />,
+    icon: buscar,
+    alt: "icono buscar",
+    className: "w-14 h-14",
     text: "Detectamos oportunidades reales en origen y producto.",
   },
   {
-    icon: <img src={ganancia} alt="icono ganancia" className="w-14 h-14 select-none" />,
+    icon: ganancia,
+    alt: "icono ganancia",
+    className: "w-14 h-14",
     text: "Optimizamos tu logística para impulsar mayor rentabilidad.",
   },
 ];
@@ -64,7 +75,15 @@ const Benefits = () => {
             ref={(el) => (itemRefs.current[index] = el)}
             className="benefit-card opacity-0 rotateY-90 flex flex-col items-center sm:items-start text-center sm:text-left gap-4 transition-transform duration-700 ease-out"
           >
-            {benefit.icon}
+            <OptimizedImage
+              src={benefit.icon}
+              alt={benefit.alt}
+              width={56}
+              height={56}
+              sizes="56px"
+              loading="lazy"
+              className={`${benefit.className} select-none`}
+            />
             <p className="text-white text-base sm:text-sm md:text-base 2xl:text-lg leading-relaxed min-h-[4.5rem] max-w-[20rem] mt-2">
               {benefit.text}
             </p>

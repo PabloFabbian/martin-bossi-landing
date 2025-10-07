@@ -1,0 +1,10 @@
+User-agent: *
+# Permite el rastreo de todo el sitio para todos los bots (Google, Bing, etc.)
+Allow: /
+
+# Desactivar rastreo en directorios internos de desarrollo (Vite/React)
+Disallow: /src/
+Disallow: /@vite/
+
+# Especifica la ubicación del archivo sitemap
+Sitemap: https://www.martinbossisrl.com/sitemap.xml

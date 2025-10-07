@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import OptimizedImage from '../OptimizedImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +26,7 @@ const ImageCarousel = ({ images }) => {
     };
 
     loadImages();
-  }, []);
+  }, [images]);
 
   useEffect(() => {
     if (loadedImages.length === 0) return;
@@ -65,10 +66,15 @@ const ImageCarousel = ({ images }) => {
       className="w-full relative overflow-hidden mx-auto rounded-xl border border-[#023E7D]/30 bg-[#001645]/50 aspect-[16/9] max-w-[600px] lg:max-w-none"
     >
       {loadedImages.map((img, index) => (
-        <img
+        <OptimizedImage
           key={index}
           src={img}
           alt="Logística internacional"
+          width={587}
+          height={352}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 587px"
+          loading={index === 0 ? 'eager' : 'lazy'}
+          priority={index === 0}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentImage ? 'opacity-100' : 'opacity-0'
             }`}
         />
@@ -84,15 +90,6 @@ const ImageCarousel = ({ images }) => {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
         </div>
       </div>
-      <style jsx>{`
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        .animate-shimmer {
-          animation: shimmer 2s infinite;
-        }
-      `}</style>
     </div>
   );
 };

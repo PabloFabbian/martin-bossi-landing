@@ -13,6 +13,11 @@ import CustomDropdown from '../components/ui/CustomDropdown';
 
 import { FORM_OPTIONS, INITIAL_FORM_DATA } from '../data/formOptions';
 
+gsap.config({
+  force3D: true,
+  nullTargetWarn: false,
+});
+
 const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   const containerRef = useRef(null);
   const innerRef = useRef(null);
@@ -35,27 +40,45 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   useClickOutside(dropdownRefs, closeAllDropdowns);
 
   useEffect(() => {
+    let rafId = null;
+    let lastHeight = null;
+
     const updateViewportHeight = () => {
-      if (window.visualViewport) {
-        setViewportHeight(`${window.visualViewport.height}px`);
-      } else {
-        setViewportHeight(`${window.innerHeight}px`);
+      const newHeight = window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+
+      if (lastHeight === null || Math.abs(newHeight - lastHeight) > 10) {
+        lastHeight = newHeight;
+        setViewportHeight(`${newHeight}px`);
       }
     };
 
+    const throttledUpdate = () => {
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        updateViewportHeight();
+        rafId = null;
+      });
+    };
+
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateViewportHeight);
+      window.visualViewport.addEventListener('resize', throttledUpdate);
     } else {
-      window.addEventListener('resize', updateViewportHeight);
+      window.addEventListener('resize', throttledUpdate);
     }
 
     updateViewportHeight();
 
     return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
       if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', updateViewportHeight);
+        window.visualViewport.removeEventListener('resize', throttledUpdate);
       } else {
-        window.removeEventListener('resize', updateViewportHeight);
+        window.removeEventListener('resize', throttledUpdate);
       }
     };
   }, []);
@@ -80,8 +103,15 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
 
   const handleClose = useCallback(() => {
     gsap.timeline({
-      defaults: { ease: 'power2.in' },
-      onComplete: () => onClose?.()
+      defaults: { ease: 'power2.in', force3D: true },
+      onComplete: () => {
+        onClose?.();
+        if (combinedRef.current && innerRef.current) {
+          gsap.set([combinedRef.current, innerRef.current, innerRef.current.children], {
+            willChange: 'auto'
+          });
+        }
+      }
     })
       .to(innerRef.current.children, {
         y: -15,
@@ -256,17 +286,39 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (isOpen) {
-        gsap.set(combinedRef.current, { opacity: 0 });
+        gsap.set(combinedRef.current, {
+          opacity: 0,
+          willChange: 'opacity, transform'
+        });
         gsap.set(innerRef.current, {
           y: 20,
           opacity: 0,
           scale: 1,
-          filter: 'blur(0px)'
+          filter: 'blur(0px)',
+          willChange: 'opacity, transform, filter'
         });
-        gsap.set(innerRef.current.children, { y: 10, opacity: 0 });
+        gsap.set(innerRef.current.children, {
+          y: 10,
+          opacity: 0,
+          willChange: 'opacity, transform'
+        });
 
-        gsap.timeline({ defaults: { ease: 'power3.out' } })
-          .to(combinedRef.current, { opacity: 1, duration: 0.35 })
+        const tl = gsap.timeline({
+          defaults: {
+            ease: 'power3.out',
+            force3D: true
+          },
+          onComplete: () => {
+            gsap.set([combinedRef.current, innerRef.current, innerRef.current.children], {
+              willChange: 'auto'
+            });
+          }
+        });
+
+        tl.to(combinedRef.current, {
+          opacity: 1,
+          duration: 0.35
+        })
           .to(innerRef.current, {
             y: 0,
             opacity: 1,
@@ -292,11 +344,12 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   return (
     <div
       ref={combinedRef}
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-6"
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-6 transform-gpu"
       style={{
         opacity: 0,
         pointerEvents: isOpen ? 'auto' : 'none',
-        height: viewportHeight
+        height: viewportHeight,
+        contain: 'layout style paint'
       }}
       aria-hidden={!isOpen}
       aria-modal="true"
@@ -305,10 +358,11 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
     >
       <div
         ref={innerRef}
-        className="bg-gradient-to-br from-[#001d3d]/90 to-[#000a1a]/95 backdrop-blur-md text-white rounded-lg sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-7xl w-full overflow-y-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12 shadow-[0_0_50px_20px_rgba(4,102,200,0.1)] border border-[#0353A4]/30 transform translate-y-5 opacity-0"
+        className="bg-gradient-to-br from-[#001d3d]/90 to-[#000a1a]/95 backdrop-blur-md text-white rounded-lg sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-7xl w-full overflow-y-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12 shadow-[0_0_50px_20px_rgba(4,102,200,0.1)] border border-[#0353A4]/30 transform translate-y-5 opacity-0 transform-gpu"
         style={{
           maxHeight: `calc(${viewportHeight} - 1rem)`,
-          minHeight: 'auto'
+          minHeight: 'auto',
+          backfaceVisibility: 'hidden'
         }}
       >
         <button
@@ -424,7 +478,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
             <div className="pt-2 sm:pt-4 pb-4">
               <button
                 type="submit"
-                className={`w-full sm:w-auto bg-gradient-to-r from-[#0466C8] to-[#0353A4] hover:from-[#0466C8]/90 hover:to-[#0353A4]/90 text-white font-semibold px-6 sm:px-8 py-3 rounded-lg sm:rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0466C8]/50 focus:ring-offset-2 focus:ring-offset-transparent shadow-lg hover:shadow-[0_10px_30px_rgba(4,102,200,0.3)] hover:scale-105 text-sm sm:text-base ${isLoading ? 'opacity-70 cursor-not-allowed transform-none' : ''}`}
+                className={`w-full sm:w-auto bg-gradient-to-r from-[#0466C8] to-[#0353A4] hover:from-[#0466C8]/90 hover:to-[#0353A4]/90 text-white font-semibold px-6 sm:px-8 py-3 rounded-lg sm:rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0466C8]/50 focus:ring-offset-2 focus:ring-offset-transparent shadow-lg hover:shadow-[0_10px_30px_rgba(4,102,200,0.3)] hover:scale-105 text-sm sm:text-base transform-gpu ${isLoading ? 'opacity-70 cursor-not-allowed transform-none' : ''}`}
                 ref={submitButtonRef}
                 disabled={isLoading}
               >

@@ -1,15 +1,20 @@
 import React from 'react';
 import StepItem from '../components/StepItem';
 import OutlineButton from '../components/OutlineButton';
+import OptimizedImage from '../components/OptimizedImage';
 import Map from '../assets/map.webp';
 
 const Connections = () => {
   return (
     <section className="relative py-20 px-6 md:px-16 -scroll-mt-10 md:scroll-mt-16 2xl:scroll-mt-24" id="nosotros">
       <div className="absolute inset-0 z-0">
-        <img
+        <OptimizedImage
           src={Map}
           alt="Mapa mundial"
+          width={1446}
+          height={723}
+          sizes="100vw"
+          loading="lazy"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/60"></div>
