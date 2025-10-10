@@ -95,18 +95,19 @@ const Hero = () => {
       />
 
       <div className="absolute inset-0 bg-gradient-to-b from-[#001331]/40 to-black/50 z-0" />
+
       <div
         className="relative z-10 container mx-auto px-6 md:px-28 2xl:px-32 h-full flex flex-col justify-start md:justify-center pt-8 pb-24 md:pb-0"
         style={{ paddingTop: `${navbarHeight}px` }}
       >
         <div
           ref={logoRef}
-          className="block sm:hidden mb-6 text-center mt-4"
+          className="block sm:hidden mb-6 mt-4 mx-auto max-w-xs"
         >
           <OptimizedImage
             src={IsolgoNight}
             alt="Logo de la empresa Martin Bossi"
-            className="h-24 mx-auto drop-shadow-[0_16px_16px_rgba(0,29,61,0.9)]"
+            className="h-24 mx-auto drop-shadow-[0_16px_16px_rgba(0,29,61,0.9)] w-full"
             width={200}
             height={96}
             loading="lazy"
