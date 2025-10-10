@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, forwardRef, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
 import emailjs from 'emailjs-com';
-import { toast, Toaster } from 'sonner';
+import { toast } from 'sonner';
 
 import { useClickOutside } from '../hooks/useClickOutside';
 import { useFormData } from '../hooks/useFormData';
@@ -391,6 +391,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <InputField
+                id="nombre"
                 label="Nombre"
                 name="nombre"
                 value={formData.nombre}
@@ -400,6 +401,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
                 hasError={fieldErrors.nombre}
               />
               <InputField
+                id="correo"
                 label="Correo"
                 name="correo"
                 type="email"
@@ -413,6 +415,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <CustomDropdown
+                id="tipoProyecto"
                 name="tipoProyecto"
                 label="Tipo de proyecto"
                 placeholder="Selecciona uno..."
@@ -427,6 +430,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
               />
 
               <CustomDropdown
+                id="presupuesto"
                 name="presupuesto"
                 label="Presupuesto"
                 placeholder="Selecciona uno..."
@@ -442,6 +446,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
             </div>
 
             <CustomDropdown
+              id="tema"
               name="tema"
               label="Selecciona un tema"
               placeholder="Selecciona uno..."
@@ -456,6 +461,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
             />
 
             <InputField
+              id="detalles"
               label="Detalles Adicionales"
               name="detalles"
               type="textarea"
@@ -491,5 +497,7 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
     </div>
   );
 });
+
+ContactForm.displayName = 'ContactForm';
 
 export default ContactForm;

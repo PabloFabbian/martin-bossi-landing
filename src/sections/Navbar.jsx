@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../components/GradientButton';
@@ -17,7 +17,6 @@ const Header = () => {
   const buttonRef = useRef(null);
   const bottomNavRef = useRef(null);
 
-  // Preload de la imagen crítica
   useEffect(() => {
     const preloadImage = (src) => {
       const img = new Image();
@@ -26,8 +25,7 @@ const Header = () => {
     preloadImage(Logo);
   }, []);
 
-  // Optimizar navigationItems con useMemo
-  const navigationItems = useMemo(() => [
+  const navigationItems = [
     {
       href: '#nosotros',
       text: 'Nosotros',
@@ -82,9 +80,8 @@ const Header = () => {
       ),
       isSpecial: false
     },
-  ], []);
+  ];
 
-  // Optimizar el efecto de GSAP - cargar después de que el contenido crítico esté listo
   useEffect(() => {
     const header = headerRef.current;
     const logo = logoRef.current;
@@ -93,7 +90,6 @@ const Header = () => {
     const bottomNav = bottomNavRef.current;
 
     if (header && logo) {
-      // Usar requestAnimationFrame para mejor performance
       const animateHeader = () => {
         const tl = gsap.timeline();
 
@@ -251,7 +247,6 @@ const Header = () => {
         }
       };
 
-      // Retrasar ligeramente la animación para priorizar LCP
       if (document.readyState === 'complete') {
         setTimeout(animateHeader, 100);
       } else {
@@ -262,7 +257,6 @@ const Header = () => {
     }
   }, []);
 
-  // Optimizar el scroll handler con throttling
   useEffect(() => {
     let ticking = false;
 

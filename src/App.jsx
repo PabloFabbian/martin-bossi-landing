@@ -1,23 +1,29 @@
 import React, { lazy, Suspense } from 'react';
-import { Toaster } from 'sonner';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Navbar from './sections/Navbar';
+import Navbar from './sections/Navbar.jsx';
 
-const Home = lazy(() => import('./pages/Home'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const Footer = lazy(() => import('./sections/Footer'));
+const Home = lazy(() => import('./pages/Home.jsx'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.jsx'));
+const Footer = lazy(() => import('./sections/Footer.jsx'));
+
+const ToasterLazy = lazy(() =>
+  import('sonner').then(module => ({ default: module.Toaster }))
+);
 
 function App() {
   const routeFallback = (
-    <div style={{ height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
       Cargando contenido...
     </div>
   );
 
   return (
     <Router>
-      <Toaster position="top-right" richColors />
+      <Suspense fallback={null}>
+        <ToasterLazy position="top-right" richColors />
+      </Suspense>
+
       <Navbar />
 
       <Suspense fallback={routeFallback}>
