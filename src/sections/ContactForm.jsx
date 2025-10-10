@@ -136,14 +136,16 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
   const handleDropdownSelect = useCallback((dropdownName, value) => {
     updateField(dropdownName, value);
     closeAllDropdowns();
-    if (fieldErrors[dropdownName]) {
-      setFieldErrors(prev => {
+
+    setFieldErrors(prev => {
+      if (prev[dropdownName]) {
         const newErrors = { ...prev };
         delete newErrors[dropdownName];
         return newErrors;
-      });
-    }
-  }, [updateField, closeAllDropdowns, fieldErrors]);
+      }
+      return prev;
+    });
+  }, [updateField, closeAllDropdowns]);
 
   const handleInputChangeWithErrorClear = useCallback((e) => {
     const { name } = e.target;
@@ -475,9 +477,9 @@ const ContactForm = forwardRef(({ isOpen, onClose, prefilledTema }, ref) => {
             <div className="block lg:hidden bg-white/5 rounded-lg p-4 mt-4 border border-white/10">
               <h3 className="text-sm font-semibold text-white mb-2">Información de contacto</h3>
               <div className="space-y-1 text-xs text-white/70">
-                <p>📧 contacto@tuempresa.com</p>
-                <p>📱 +54 11 1234-5678</p>
-                <p>📍 Buenos Aires, Argentina</p>
+                <p>📧 martin.bossi.adm@gmail.com</p>
+                <p>📱 +54 9 11 7107-7116</p>
+                <p>📍 Ciudad Autónoma de Buenos Aires, Argentina</p>
               </div>
             </div>
 

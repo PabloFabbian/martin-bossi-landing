@@ -1,6 +1,6 @@
 import React from 'react';
 import ChevronIcon from './ChevronIcon';
-import DropdownOption from './DropdownOption';
+import DropdownOption from './DropdownOption'; // Aunque no se use, se mantiene
 
 const CustomDropdown = ({
   name,
@@ -63,7 +63,7 @@ const CustomDropdown = ({
                 key={option.value}
                 role="option"
                 aria-selected={option.value === value}
-                onClick={() => onSelect(option)}
+                onClick={() => onSelect(option.value)}
                 className={`cursor-pointer px-4 py-2 text-white hover:bg-slate-700 ${option.value === value ? 'bg-slate-700' : ''
                   }`}
               >
