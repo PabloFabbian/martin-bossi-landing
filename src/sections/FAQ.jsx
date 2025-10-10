@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ContactForm from "./ContactForm";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
     {
@@ -30,7 +26,7 @@ const faqs = [
 
 const FAQ = () => {
     const [openIndex, setOpenIndex] = useState(() => {
-        return window.innerWidth >= 768 ? 0 : null;
+        return typeof window !== 'undefined' && window.innerWidth >= 768 ? 0 : null;
     });
     const [showContactForm, setShowContactForm] = useState(false);
     const sectionRef = useRef(null);
@@ -50,64 +46,77 @@ const FAQ = () => {
 
     useEffect(() => {
         const el = sectionRef.current;
-        const items = itemRefs.current;
-        const title = el.querySelector('.faq-title');
-        const subtitle = el.querySelector('.faq-subtitle');
-        const description = el.querySelector('.faq-description');
-        const cta = el.querySelector('.faq-cta');
+        if (!el) return; // Salir si el componente no está montado (seguridad)
 
-        gsap.fromTo(
-            [title, subtitle, description],
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out",
-                stagger: 0.2,
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 80%",
-                    toggleActions: "play none none none",
-                },
-            }
-        );
+        import('gsap').then(({ gsap }) => {
 
-        gsap.fromTo(
-            items,
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                stagger: 0.1,
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 70%",
-                    toggleActions: "play none none none",
-                },
-            }
-        );
+            import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
 
-        if (cta) {
-            gsap.fromTo(
-                cta,
-                { opacity: 0, y: 20 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: cta,
-                        start: "top 90%",
-                        toggleActions: "play none none none",
-                    },
+                gsap.registerPlugin(ScrollTrigger);
+
+                const items = itemRefs.current;
+                const title = el.querySelector('.faq-title');
+                const subtitle = el.querySelector('.faq-subtitle');
+                const description = el.querySelector('.faq-description');
+                const cta = el.querySelector('.faq-cta');
+
+                gsap.fromTo(
+                    [title, subtitle, description],
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: "power3.out",
+                        stagger: 0.2,
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 80%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                );
+
+                gsap.fromTo(
+                    items,
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        stagger: 0.1,
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 70%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                );
+
+                if (cta) {
+                    gsap.fromTo(
+                        cta,
+                        { opacity: 0, y: 20 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: cta,
+                                start: "top 90%",
+                                toggleActions: "play none none none",
+                            },
+                        }
+                    );
                 }
-            );
-        }
+
+            });
+        });
+
     }, []);
+
 
     return (
         <>

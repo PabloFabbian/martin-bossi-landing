@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import Port from '../assets/port.webp';
 import IsolgoNight from '../assets/logo.webp';
+import OptimizedImage from '../components/OptimizedImage';
 import GradientButton from '../components/GradientButton';
 
 const Hero = () => {
@@ -18,11 +19,6 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    const img = new Image();
-    const logoImg = new Image();
-    img.src = Port;
-    logoImg.src = IsolgoNight;
-
     const ctx = gsap.context(() => {
       if (logoRef.current) {
         gsap.fromTo(
@@ -46,7 +42,7 @@ const Hero = () => {
             y: 0,
             opacity: 1,
             duration: 0.8,
-            delay: 1.5,
+            delay: 0,
             ease: 'power3.out',
           }
         );
@@ -59,7 +55,7 @@ const Hero = () => {
           y: 0,
           opacity: 1,
           duration: 0.7,
-          delay: 1.8,
+          delay: 0.3,
           stagger: 0.15,
           ease: 'power3.out',
         }
@@ -72,7 +68,7 @@ const Hero = () => {
           {
             y: 0,
             opacity: 1,
-            delay: 2.3,
+            delay: 0.7,
             duration: 0.6,
             ease: 'power2.out',
           }
@@ -87,9 +83,18 @@ const Hero = () => {
     <section
       id="inicio"
       className="relative h-screen bg-cover bg-top bg-no-repeat"
-      style={{ backgroundImage: `url(${Port})` }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-[#001331]/40 to-black/50" />
+      <OptimizedImage
+        src={Port}
+        alt="Contenedores y grúas de puerto, simbolizando el comercio internacional"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        width={1920}
+        height={1080}
+        priority={true}
+        sizes="100vw"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-b from-[#001331]/40 to-black/50 z-0" />
       <div
         className="relative z-10 container mx-auto px-6 md:px-28 2xl:px-32 h-full flex flex-col justify-start md:justify-center pt-8 pb-24 md:pb-0"
         style={{ paddingTop: `${navbarHeight}px` }}
@@ -98,11 +103,13 @@ const Hero = () => {
           ref={logoRef}
           className="block sm:hidden mb-6 text-center mt-4"
         >
-          <img
+          <OptimizedImage
             src={IsolgoNight}
-            alt="Logo de la empresa"
+            alt="Logo de la empresa Martin Bossi"
             className="h-24 mx-auto drop-shadow-[0_16px_16px_rgba(0,29,61,0.9)]"
-            loading="eager"
+            width={200}
+            height={96}
+            loading="lazy"
           />
         </div>
 
@@ -165,8 +172,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      <img src={Port} alt="" className="hidden" loading="eager" />
     </section>
   );
 };

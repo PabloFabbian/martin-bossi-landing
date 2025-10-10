@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import Hero from '../sections/Hero';
 import Benefits from '../sections/Benefits';
-import AboutUs from '../sections/AboutUs';
-import ServicesPage from '../sections/ServicesPage';
-import FAQ from '../sections/FAQ';
 import DiagonalSeparator from '../components/DiagonalSeparator';
-import ContactSection from '../sections/ContactSection';
+
+const AboutUs = lazy(() => import('../sections/AboutUs'));
+const ServicesPage = lazy(() => import('../sections/ServicesPage'));
+const FAQ = lazy(() => import('../sections/FAQ'));
+const ContactSection = lazy(() => import('../sections/ContactSection'));
+
+const LoadingFallback = () => (
+    <div style={{ padding: '50px 0', textAlign: 'center' }}>
+        Cargando Contenido...
+    </div>
+);
 
 const Home = () => {
     useEffect(() => {
@@ -25,10 +32,12 @@ const Home = () => {
         <>
             <Hero />
             <Benefits />
-            <AboutUs />
-            <ServicesPage />
-            <FAQ />
-            <ContactSection />
+            <Suspense fallback={<LoadingFallback />}>
+                <AboutUs />
+                <ServicesPage />
+                <FAQ />
+                <ContactSection />
+            </Suspense>
             <DiagonalSeparator className="rotate-180" />
         </>
     );

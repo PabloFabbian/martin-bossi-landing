@@ -9,9 +9,9 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Footer = lazy(() => import('./sections/Footer'));
 
 function App() {
-  const loadingFallback = (
-    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      Cargando...
+  const routeFallback = (
+    <div style={{ height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+      Cargando contenido...
     </div>
   );
 
@@ -20,7 +20,7 @@ function App() {
       <Toaster position="top-right" richColors />
       <Navbar />
 
-      <Suspense fallback={loadingFallback}>
+      <Suspense fallback={routeFallback}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../components/GradientButton';
@@ -7,6 +7,7 @@ import Logo from '../assets/isologo.webp';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isLogoLoaded, setIsLogoLoaded] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -16,222 +17,17 @@ const Header = () => {
   const buttonRef = useRef(null);
   const bottomNavRef = useRef(null);
 
+  // Preload de la imagen crítica
   useEffect(() => {
-    const header = headerRef.current;
-    const logo = logoRef.current;
-    const nav = navRef.current;
-    const button = buttonRef.current;
-    const bottomNav = bottomNavRef.current;
-
-    if (header && logo) {
-      const tl = gsap.timeline();
-
-      if (window.innerWidth >= 768) {
-        gsap.set(header, {
-          y: -120,
-          opacity: 0,
-          scaleY: 0,
-          rotationX: -90,
-          transformOrigin: 'top center',
-          transformPerspective: 1000,
-        });
-
-        gsap.set([logo, button], {
-          y: -50,
-          opacity: 0,
-          scale: 0.7,
-          rotationY: 45,
-        });
-
-        if (nav) {
-          gsap.set(nav.children, {
-            opacity: 0,
-          });
-        }
-
-        tl.to(header, {
-          y: 0,
-          opacity: 1,
-          scaleY: 1,
-          rotationX: 0,
-          duration: 1.2,
-          ease: 'back.out(1.7)',
-        })
-          .to(
-            header,
-            {
-              boxShadow:
-                '0 0 30px rgba(225,176,0,0.8), 0 0 60px rgba(225,176,0,0.4)',
-              duration: 0.2,
-              ease: 'power2.out',
-            },
-            '-=0.8'
-          )
-          .to(header, {
-            boxShadow: '0 4px 15px rgba(225,176,0,0.2)',
-            duration: 0.5,
-            ease: 'power2.out',
-          })
-          .to(
-            logo,
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              rotationY: 0,
-              duration: 0.8,
-              ease: 'elastic.out(1, 0.75)',
-            },
-            '-=0.9'
-          );
-
-        if (button) {
-          tl.to(
-            button,
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              rotationY: 0,
-              duration: 0.9,
-              ease: 'elastic.out(1, 0.75)',
-              boxShadow: '0 0 15px rgba(255,174,43,0.6)',
-              onComplete: () => {
-                gsap.to(button, {
-                  boxShadow: '0 0 0 rgba(255,174,43,0)',
-                  duration: 0.8,
-                  ease: 'power2.out'
-                });
-              }
-            },
-            '-=0.9'
-          );
-        }
-
-        if (nav) {
-          tl.to(
-            nav.children,
-            {
-              opacity: 1,
-              duration: 0.6,
-              stagger: 0.08,
-              ease: 'power2.out',
-            },
-            '-=0.3'
-          );
-        }
-
-        tl.to(header, {
-          y: -10,
-          duration: 0.2,
-          ease: 'power2.out',
-        })
-          .to(header, {
-            y: 0,
-            duration: 0.4,
-            ease: 'bounce.out',
-          });
-      } else {
-        gsap.set(header, {
-          y: -100,
-          opacity: 0,
-        });
-
-        gsap.set(logo, {
-          scale: 0,
-          opacity: 0,
-        });
-
-        if (bottomNav) {
-          gsap.set(bottomNav, {
-            y: 100,
-            opacity: 0,
-          });
-        }
-
-        tl.to(header, {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'back.out(1.7)',
-        })
-          .to(
-            logo,
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.6,
-              ease: 'elastic.out(1, 0.75)',
-            },
-            '-=0.4'
-          );
-
-        if (bottomNav) {
-          tl.to(
-            bottomNav,
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              ease: 'back.out(1.7)',
-            },
-            '-=0.6'
-          );
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      const sections = ['nosotros', 'servicios', 'cotizacion', 'faq', 'contacto'];
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(sections[i]);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(`#${sections[i]}`);
-          break;
-        }
-      }
+    const preloadImage = (src) => {
+      const img = new Image();
+      img.src = src;
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    preloadImage(Logo);
   }, []);
 
-  const scrollToSection = (sectionId, e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (location.pathname !== '/') {
-      sessionStorage.setItem('scrollToSection', sectionId);
-      navigate('/');
-      return;
-    }
-
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  const handleExploreClick = () => {
-    if (location.pathname !== '/') {
-      sessionStorage.setItem('scrollToSection', '#servicios');
-      navigate('/');
-    } else {
-      const element = document.querySelector('#servicios');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  };
-
-  const navigationItems = [
+  // Optimizar navigationItems con useMemo
+  const navigationItems = useMemo(() => [
     {
       href: '#nosotros',
       text: 'Nosotros',
@@ -286,7 +82,248 @@ const Header = () => {
       ),
       isSpecial: false
     },
-  ];
+  ], []);
+
+  // Optimizar el efecto de GSAP - cargar después de que el contenido crítico esté listo
+  useEffect(() => {
+    const header = headerRef.current;
+    const logo = logoRef.current;
+    const nav = navRef.current;
+    const button = buttonRef.current;
+    const bottomNav = bottomNavRef.current;
+
+    if (header && logo) {
+      // Usar requestAnimationFrame para mejor performance
+      const animateHeader = () => {
+        const tl = gsap.timeline();
+
+        if (window.innerWidth >= 768) {
+          gsap.set(header, {
+            y: -120,
+            opacity: 0,
+            scaleY: 0,
+            rotationX: -90,
+            transformOrigin: 'top center',
+            transformPerspective: 1000,
+          });
+
+          gsap.set([logo, button], {
+            y: -50,
+            opacity: 0,
+            scale: 0.7,
+            rotationY: 45,
+          });
+
+          if (nav) {
+            gsap.set(nav.children, {
+              opacity: 0,
+            });
+          }
+
+          tl.to(header, {
+            y: 0,
+            opacity: 1,
+            scaleY: 1,
+            rotationX: 0,
+            duration: 1.2,
+            ease: 'back.out(1.7)',
+          })
+            .to(
+              header,
+              {
+                boxShadow: '0 0 30px rgba(225,176,0,0.8), 0 0 60px rgba(225,176,0,0.4)',
+                duration: 0.2,
+                ease: 'power2.out',
+              },
+              '-=0.8'
+            )
+            .to(header, {
+              boxShadow: '0 4px 15px rgba(225,176,0,0.2)',
+              duration: 0.5,
+              ease: 'power2.out',
+            })
+            .to(
+              logo,
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                rotationY: 0,
+                duration: 0.8,
+                ease: 'elastic.out(1, 0.75)',
+              },
+              '-=0.9'
+            );
+
+          if (button) {
+            tl.to(
+              button,
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                rotationY: 0,
+                duration: 0.9,
+                ease: 'elastic.out(1, 0.75)',
+                boxShadow: '0 0 15px rgba(255,174,43,0.6)',
+                onComplete: () => {
+                  gsap.to(button, {
+                    boxShadow: '0 0 0 rgba(255,174,43,0)',
+                    duration: 0.8,
+                    ease: 'power2.out'
+                  });
+                }
+              },
+              '-=0.9'
+            );
+          }
+
+          if (nav) {
+            tl.to(
+              nav.children,
+              {
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: 'power2.out',
+              },
+              '-=0.3'
+            );
+          }
+
+          tl.to(header, {
+            y: -10,
+            duration: 0.2,
+            ease: 'power2.out',
+          })
+            .to(header, {
+              y: 0,
+              duration: 0.4,
+              ease: 'bounce.out',
+            });
+        } else {
+          gsap.set(header, {
+            y: -100,
+            opacity: 0,
+          });
+
+          gsap.set(logo, {
+            scale: 0,
+            opacity: 0,
+          });
+
+          if (bottomNav) {
+            gsap.set(bottomNav, {
+              y: 100,
+              opacity: 0,
+            });
+          }
+
+          tl.to(header, {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+          })
+            .to(
+              logo,
+              {
+                scale: 1,
+                opacity: 1,
+                duration: 0.6,
+                ease: 'elastic.out(1, 0.75)',
+              },
+              '-=0.4'
+            );
+
+          if (bottomNav) {
+            tl.to(
+              bottomNav,
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'back.out(1.7)',
+              },
+              '-=0.6'
+            );
+          }
+        }
+      };
+
+      // Retrasar ligeramente la animación para priorizar LCP
+      if (document.readyState === 'complete') {
+        setTimeout(animateHeader, 100);
+      } else {
+        window.addEventListener('load', () => {
+          setTimeout(animateHeader, 100);
+        });
+      }
+    }
+  }, []);
+
+  // Optimizar el scroll handler con throttling
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+
+          const sections = ['nosotros', 'servicios', 'cotizacion', 'faq', 'contacto'];
+          const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const element = document.getElementById(sections[i]);
+            if (element && element.offsetTop <= scrollPosition) {
+              setActiveSection(`#${sections[i]}`);
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (location.pathname !== '/') {
+      sessionStorage.setItem('scrollToSection', sectionId);
+      navigate('/');
+      return;
+    }
+
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleExploreClick = () => {
+    if (location.pathname !== '/') {
+      sessionStorage.setItem('scrollToSection', '#servicios');
+      navigate('/');
+    } else {
+      const element = document.querySelector('#servicios');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  const handleLogoLoad = () => {
+    setIsLogoLoaded(true);
+  };
 
   return (
     <>
@@ -317,8 +354,12 @@ const Header = () => {
         >
           <img
             src={Logo}
-            alt="Logo Bossi SRL"
+            alt="Logo Martin Bossi SRL"
             className="transition-all duration-300 ease-in-out h-16 md:h-12 2xl:h-14"
+            loading="eager"
+            width="auto"
+            height="auto"
+            onLoad={handleLogoLoad}
           />
         </Link>
 
@@ -370,7 +411,6 @@ const Header = () => {
         touch-manipulation"
       >
         <div className="flex justify-between items-center py-4 px-4">
-
           {navigationItems.map((item, index) => {
             const isActive = activeSection === item.href;
             return (
@@ -414,10 +454,8 @@ const Header = () => {
               </a>
             );
           })}
-
         </div>
       </nav>
-
     </>
   );
 };
