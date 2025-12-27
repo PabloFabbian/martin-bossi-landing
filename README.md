@@ -136,7 +136,7 @@ Para cambios o soporte, contactá directamente al desarrollador.
 
 **Desarrollado por:** Pablo Fabbian
 
-- Email: pablo@example.com
+- Email: pablo.fabbian@gmail.com
 - LinkedIn: https://linkedin.com/in/pablofabbian
 
 ---
