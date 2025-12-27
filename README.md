@@ -1,142 +1,152 @@
-# MARTIN BOSSI SRL | Landing Page
+# MARTIN BOSSI SRL | Landing Page Corporativa
 
-## Descripción del Proyecto
+## Overview / Contexto de Negocio
 
-Diseño y desarrollo de una landing page corporativa desde cero para una SRL dedicada a brindar servicios de importación para empresas, pymes y emprendedores. El sitio está desarrollado con tecnologías modernas como **React** y **Tailwind CSS**, enfocado en experiencia de usuario, diseño responsive y navegación clara.  
-Incluye integración de animaciones con **Framer Motion**, formulario funcional con **EmailJS**, y un mapa de ubicación embebido de Google Maps, siguiendo el croquis e instrucciones del cliente.
+Landing page corporativa desarrollada como **Single Page Application (SPA)** para *Martin Bossi SRL*, empresa especializada en **importación, exportación y gestión aduanera**.
+
+El sitio funciona como **herramienta comercial y de generación de leads**, con foco en:
+- Claridad de servicios
+- Construcción de confianza
+- Experiencia de usuario fluida
+- Performance y percepción premium de marca
+
+Está pensada para **empresas, pymes y emprendedores** que necesitan acompañamiento en operaciones de comercio internacional.
 
 ---
 
-## Tabla de Contenidos
+## Objetivos del Proyecto
 
-- [Tecnologías](#tecnologías)
-- [Características Principales](#características-principales)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Variables de Entorno](#variables-de-entorno)
-- [Despliegue](#despliegue)
-- [Contribuciones](#contribuciones)
-- [Contacto](#contacto)
+- **Lead Generation:** captación de potenciales clientes mediante formulario de contacto  
+- **Comunicación de Servicios:** importación, despacho aduanero y logística  
+- **Brand Trust:** transmitir profesionalismo, proceso y transparencia  
+- **Engagement:** navegación fluida, animaciones suaves y scroll inteligente  
+- **Escalabilidad:** arquitectura mantenible y preparada para crecer  
 
-## Tecnologías
+---
 
-- React
-- Tailwind CSS
-- Framer Motion (para animaciones suaves y efectivas)
-- EmailJS (envío de formularios sin backend)
-- Google Maps Embed API (mapa interactivo de ubicación)
-- Vite (bundler y servidor de desarrollo ultra rápido)
-- Sonner (notificaciones visuales)
+## Stack Tecnológico
 
-## Características Principales
+| Categoría | Tecnología | Rol |
+|--------|-----------|-----|
+| Framework | React 19 | Arquitectura de componentes |
+| Bundler | Vite | Build rápido y optimizado |
+| Routing | React Router DOM | Navegación client-side |
+| Estilos | Tailwind CSS | Diseño utility-first |
+| Animaciones | GSAP + ScrollTrigger | Animaciones avanzadas |
+| Scroll Suave | Lenis | Experiencia de navegación |
+| Formularios | EmailJS | Envío sin backend |
+| Notificaciones | Sonner | Feedback visual |
+| Tipografía | Google Fonts (Inter) | Consistencia visual |
 
-- Diseño profesional, responsive y accesible con Tailwind CSS
-- Navegación por anclas con scroll suave y menú móvil tipo overlay
-- Rotador dinámico de frases e imágenes en sección "Cotizá tu operación"
-- Formulario de contacto con validación y envío vía EmailJS
-- Integración de Google Maps embebido con ubicación del cliente
-- Animaciones fluidas con Framer Motion en componentes clave
-- SEO y optimización para rendimiento (Lighthouse 99+)
-- Deploy listo para producción y hosting en plataforma elegida
+---
+
+## Arquitectura de la Aplicación
+
+La aplicación sigue una **arquitectura basada en componentes**, con separación clara de responsabilidades.
+
+### Principios clave:
+- Lazy Loading estratégico para secciones secundarias  
+- Code Splitting por ruta y componente  
+- Componentes reutilizables  
+- Sin estado global (no requerido para esta escala)  
+
+### Rutas principales:
+- `/` → Home  
+- `/politica-de-privacidad` → Política de Privacidad  
+
+---
+
+## Navegación y UX
+
+- Navegación por anclas con scroll suave  
+- Sistema híbrido:
+  - Routing entre páginas  
+  - Scroll interno entre secciones  
+- Persistencia de navegación con `sessionStorage`  
+- Navbar animado con GSAP  
+
+---
+
+## Secciones del Home
+
+| Sección | Rol |
+|------|-----|
+| Navbar | Navegación persistente |
+| Hero | Propuesta de valor |
+| Benefits | Diferenciales |
+| About Us | Proceso |
+| Services | Servicios |
+| FAQ | Preguntas frecuentes |
+| Contact CTA | Conversión |
+| Footer | Información legal y mapa |
+
+---
+
+## Sistema de Animaciones
+
+Arquitectura en dos capas:
+
+**GSAP**
+- Animaciones de entrada
+- Timelines coordinadas
+- ScrollTrigger
+
+**CSS**
+- Hover states
+- Transiciones simples
+- Modal de contacto
+
+---
+
+## Performance y Optimización
+
+- Lazy loading
+- Imágenes WebP optimizadas
+- Preload de assets clave
+- Tailwind purge en producción
+- Event listeners pasivos
+
+---
 
 ## Instalación
 
-Sigue estos pasos para instalar y correr el proyecto localmente:
-
-1. Cloná el repositorio:
-
-   ```bash
-   git clone https://github.com/tu-usuario/martin-bossi-landing.git
-   cd martin-bossi-landing
-   ```
-
-2. Instalá las dependencias:
-
-   ```bash
-   npm install
-   ```
-
-3. Configurá las variables de entorno (ver sección Variables de Entorno).
-
-4. Iniciá el servidor de desarrollo:
-
-   ```bash
-   npm run dev
-   ```
-
-5. Abrí tu navegador y visitá:
-   ```
-   http://localhost:5173
-   ```
-
-## Uso
-
-- Navegá por las secciones mediante el menú superior o desplazamiento por anclas.
-- Probá el formulario de contacto, completando los campos y enviando para verificar la integración con EmailJS.
-- Explorá las animaciones y rotadores para ver el dinamismo del sitio.
-- Consultá el mapa embebido para la ubicación física del cliente.
-
-## Estructura del Proyecto
-
+```bash
+git clone https://github.com/tu-usuario/martin-bossi-landing.git
+cd martin-bossi-landing
+npm install
+npm run dev
 ```
-martin-bossi-landing/
-├── public/                     # Archivos estáticos (favicon, imágenes, etc.)
-├── src/
-│   ├── components/             # Componentes React reutilizables
-│   ├── assets/                 # Imágenes, íconos y SVGs
-│   ├── pages/                  # Vistas y secciones del sitio
-│   ├── styles/                 # Archivos CSS / Tailwind config
-│   ├── utils/                  # Funciones auxiliares y hooks personalizados
-│   ├── App.jsx                 # Componente raíz
-│   └── main.jsx                # Punto de entrada React + Vite
-├── .env                       # Variables de entorno (no versionar)
-├── .gitignore                 # Ignorar node_modules, dist, .env, etc.
-├── package.json               # Dependencias y scripts
-├── tailwind.config.js         # Configuración Tailwind CSS
-└── vite.config.js             # Configuración Vite
+
+Servidor:
 ```
+http://localhost:5173
+```
+
+---
 
 ## Variables de Entorno
 
-Para que el formulario y el mapa funcionen correctamente, necesitás configurar estas variables:
-
 ```env
-VITE_EMAILJS_SERVICE_ID=tu_service_id
-VITE_EMAILJS_TEMPLATE_ID=tu_template_id
-VITE_EMAILJS_PUBLIC_KEY=tu_public_key
-VITE_GOOGLE_MAPS_API_KEY=tu_api_key
+VITE_EMAILJS_SERVICE_ID=xxxx
+VITE_EMAILJS_TEMPLATE_ID=xxxx
+VITE_EMAILJS_PUBLIC_KEY=xxxx
 ```
 
-**Importante:** Nunca subas este archivo `.env` al repositorio público. Está incluido en `.gitignore`.
+---
 
-## Despliegue
-
-Para preparar el proyecto para producción:
+## Build & Deploy
 
 ```bash
 npm run build
+npm run preview
 ```
 
-Esto generará una carpeta `dist/` optimizada para ser subida a tu hosting (Netlify, Vercel, GitHub Pages, etc.).
-
-## Contribuciones
-
-Este proyecto está pensado para un cliente específico, por lo que no se contemplan contribuciones externas.
-
-Para cambios o soporte, contactá directamente al desarrollador.
-
-## Contacto
-
-**Martín Bossi SRL**
-
-- Email: contacto@martinbossi.com
-- Teléfono: +54 9 11 1234 5678
-- Dirección: Calle Falsa 123, Ciudad, País
-
-**Desarrollado por:** Pablo Fabbian
-
-- Email: pablo.fabbian@gmail.com
-- LinkedIn: https://linkedin.com/in/pablofabbian
-
 ---
+
+## Autor
+
+**Pablo Fabbian**  
+Frontend Developer · React  
+
+LinkedIn: https://linkedin.com/in/pablofabbian  
+Email: pablo.fabbian@gmail.com
